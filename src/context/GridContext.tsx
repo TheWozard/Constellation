@@ -1,6 +1,6 @@
 import React from "react";
 import ReactGridLayout from "react-grid-layout";
-import { LongTermStorage } from "../util/LongTermStorage";
+import { LongTermStorage } from "util/LongTermStorage";
 
 interface GridState {
     draggable: boolean

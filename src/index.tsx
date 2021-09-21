@@ -3,10 +3,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
-import App from './App';
-import './assets/index.scss';
-import { GridContextProvider } from './context/GridContext';
-import reportWebVitals from './reportWebVitals';
+import App from 'App';
+import 'assets/index.scss';
+import { GridContextProvider } from 'context/GridContext';
+import reportWebVitals from 'reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>

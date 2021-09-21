@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactGridLayout, { WidthProvider } from 'react-grid-layout';
-import { GridActionType, GridContext } from '../context/GridContext';
-import { GridCard } from './card/GridCard';
+import { GridActionType, GridContext } from 'context/GridContext';
+import { GridCard } from 'grid/card/GridCard';
 
 const ResponsiveGridLayout = WidthProvider(ReactGridLayout);
 
