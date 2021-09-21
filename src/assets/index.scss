@@ -1,0 +1,24 @@
+@import "~@blueprintjs/core/lib/scss/variables";
+
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: $pt-dark-app-background-color;
+}
+
+#root {
+  height: 100vh;
+  > div {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.grid-body {
+  flex: 1;
+}
+
+.grid-card {
+  height: 100%
+}

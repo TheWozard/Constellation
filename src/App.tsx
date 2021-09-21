@@ -1,24 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Classes, FocusStyleManager, Navbar } from "@blueprintjs/core";
+import { Grid } from "./grid/Grid";
+
+FocusStyleManager.onlyShowFocusOnTabs();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={Classes.DARK}>
+      <Navbar>
+
+      </Navbar>
+      <div className={"grid-body"}>
+        <Grid />
+      </div>
     </div>
   );
 }

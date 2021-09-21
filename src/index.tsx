@@ -1,12 +1,18 @@
+import '@blueprintjs/core/lib/css/blueprint.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import 'react-grid-layout/css/styles.css';
+import 'react-resizable/css/styles.css';
 import App from './App';
+import './assets/index.scss';
+import { GridContextProvider } from './context/GridContext';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <GridContextProvider>
+      <App />
+    </GridContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
