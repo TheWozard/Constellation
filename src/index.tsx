@@ -1,17 +1,23 @@
+import { HotkeysProvider } from '@blueprintjs/core';
 import '@blueprintjs/core/lib/css/blueprint.css';
+import App from 'App';
+import 'assets/index.scss';
+import { GridContextProvider } from 'context/GridContext';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'react-grid-layout/css/styles.css';
 import 'react-resizable/css/styles.css';
-import App from 'App';
-import 'assets/index.scss';
-import { GridContextProvider } from 'context/GridContext';
 import reportWebVitals from 'reportWebVitals';
+import { Hotkeys } from 'util/Hotkeys';
 
 ReactDOM.render(
   <React.StrictMode>
     <GridContextProvider>
-      <App />
+      <HotkeysProvider>
+        <Hotkeys>
+          <App />
+        </Hotkeys>
+      </HotkeysProvider>
     </GridContextProvider>
   </React.StrictMode>,
   document.getElementById('root')

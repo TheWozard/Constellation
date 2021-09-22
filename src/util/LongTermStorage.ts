@@ -41,9 +41,8 @@ export class LongTermStorage<T> {
     }
 
     public set(data: T) {
-        this.storage.setItem(this.key, JSON.stringify({
-            key: this.key, data
-        }))
+        const final: LongTermStorageWrapper<T> = { version: this.version, data }
+        this.storage.setItem(this.key, JSON.stringify(final))
     }
 
 }
