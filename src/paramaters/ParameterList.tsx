@@ -1,10 +1,11 @@
 import _ from "lodash";
 import { GenericParameters } from "paramaters";
-import React from "react";
+import React, { Children } from "react";
 
 interface Props {
-    className: string
-    style: React.CSSProperties
+    className?: string
+    style?: React.CSSProperties
+    init?: { [s: string]: any }
 
     params: GenericParameters
     onComplete: (data: { [s: string]: any }) => void
@@ -15,19 +16,8 @@ export enum ParameterErrorType {
     MissingRequiredField = "MissingRequiredField"
 }
 
-export const ParameterList: React.FunctionComponent<Props> = ({ className, style, params, onComplete, onError }) => {
-    const [data, setData] = React.useState<{ [s: string]: any }>({})
-
-    const elements = React.useMemo(() => {
-        return Object.keys(params).map((key) => {
-            const RENDERER = params[key].r
-            return (
-                <RENDERER key={key} param={params[key]} value={data[key]} setValue={(value) => {
-                    setData({ ...data, [key]: value })
-                }} />
-            )
-        })
-    }, [])
+export const ParameterList: React.FunctionComponent<React.PropsWithChildren<Props>> = ({ className, style, init, params, onComplete, onError, children }) => {
+    const [data, setData] = React.useState<{ [s: string]: any }>(init || {})
 
     return (
         <form onSubmit={(event) => {
@@ -53,7 +43,15 @@ export const ParameterList: React.FunctionComponent<Props> = ({ className, style
             }
             onComplete(final)
         }} className={className} style={style}>
-            {elements}
+            {Object.keys(params).map((key) => {
+                const RENDERER = params[key].r
+                return (
+                    <RENDERER key={key} name={key} param={params[key]} value={data[key]} setValue={(value) => {
+                        setData({ ...data, [key]: value })
+                    }} />
+                )
+            })}
+            {children}
         </form>
     )
 }

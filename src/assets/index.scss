@@ -30,6 +30,10 @@ body {
   right: $pt-grid-size;
 }
 
+.drawer-padding {
+  padding: $pt-grid-size * 3
+}
+
 .margin-horizontal-spacing {
   > :not(:first-child){
     margin-left: $pt-grid-size;

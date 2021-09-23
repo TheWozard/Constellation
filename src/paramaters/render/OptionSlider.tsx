@@ -1,18 +1,18 @@
 import { FormGroup, Slider } from "@blueprintjs/core";
-import { ParameterRendererFactory } from "paramaters";
+import { ParameterRenderer, ParameterRendererFactory } from "paramaters";
 import React from "react";
 
-interface Props {
-    options: string[]
+interface Props<T> {
+    options: T[]
     labels?: string[]
     title?: string
     help?: string
     showTrackFill?: boolean
 }
 
-export const OptionSlider: ParameterRendererFactory<string, Props> = ({ options, labels, title, help, showTrackFill }) => {
-    return ({ key, param, value, setValue }) => {
-        const [index, setIndex] = React.useState(() => {
+export function OptionSlider<T>({ options, labels, title, help, showTrackFill }: Props<T>): ParameterRenderer<T> {
+    return ({ name, param, value, setValue }) => {
+        const [index, setIndex] = React.useState<number>(() => {
             let index = options.indexOf(value)
             if (index === -1) {
                 setValue(options[0])
@@ -20,17 +20,18 @@ export const OptionSlider: ParameterRendererFactory<string, Props> = ({ options,
             }
             return index
         })
+
         return (
             <FormGroup
-                label={title || key}
-                labelFor={`${key}-input`}
+                label={title || name}
+                labelFor={`${name}-input`}
                 helperText={help}
                 labelInfo={param.required ? "(Required)" : undefined}
             >
                 <Slider
                     disabled={param.disabled}
                     min={0}
-                    max={options.length}
+                    max={options.length-1}
                     value={index}
                     showTrackFill={showTrackFill}
                     onChange={setIndex}
@@ -38,14 +39,19 @@ export const OptionSlider: ParameterRendererFactory<string, Props> = ({ options,
                         setIndex(target)
                         setValue(options[target])
                     }}
+                    labelStepSize={1}
                     labelRenderer={(value) => {
                         if (labels != null && value < labels.length) {
-                            labels[value]
+                            return labels[value]
                         }
-                        return options[value]
+                        return `${options[value]}`
                     }}
                 />
             </FormGroup>
         )
     }
+}
+
+export function OptionSliderOfType<T>(): ParameterRendererFactory<T, Props<T>> {
+    return OptionSlider
 }

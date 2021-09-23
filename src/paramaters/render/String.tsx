@@ -11,16 +11,16 @@ interface Props {
 }
 
 export const String: ParameterRendererFactory<string, Props> = ({ title, help, placeholder, icon, leftElement, rightElement }) => {
-    return ({ key, param, value, setValue }) => (
+    return ({ name, param, value, setValue }) => (
         <FormGroup
-            label={title || key}
-            labelFor={`${key}-input`}
+            label={title || name}
+            labelFor={`${name}-input`}
             helperText={help}
             labelInfo={param.required ? "(Required)" : undefined}
         >
             <InputGroup
-                id={`${key}-input`}
-                placeholder={placeholder || title || key}
+                id={`${name}-input`}
+                placeholder={placeholder || title || name}
                 value={value}
                 onChange={(event) => {
                     setValue(event.target.value)

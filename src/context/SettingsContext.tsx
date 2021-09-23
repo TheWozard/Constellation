@@ -1,11 +1,11 @@
 import React from "react"
 import { LongTermStorage } from "util/LongTermStorage"
 
-interface Settings {
+export interface Settings {
     TextRendering: TextRendering,
 }
 
-enum TextRendering {
+export enum TextRendering {
     Hidden,
     FirstLetter,
     Full,
@@ -17,7 +17,7 @@ const SettingsStorage = new LongTermStorage("settings", {
 
 export const SettingsUpdate = (settings: Settings) => {
     SettingsStorage.set(settings)
-    location.reload()
+    window.location.reload()
 }
 
 export const SettingsContext = React.createContext<Settings>(SettingsStorage.get())

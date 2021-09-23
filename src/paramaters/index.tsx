@@ -8,15 +8,15 @@ export type Parameters<T> = {
 
 export interface Parameter<T> {
     r: ParameterRenderer<T>
-    required: boolean
-    disabled: boolean
+    required?: boolean
+    disabled?: boolean
 }
 
 export type ParameterRenderer<T> = React.FunctionComponent<ParameterRendererProps<T>>
 export type ParameterRendererFactory<T, P = {}> = (props: P) => ParameterRenderer<T>
 
 export interface ParameterRendererProps<T> {
-    key: string
+    name: string
     param: Parameter<T>
     value: T
     setValue: (value: T) => void

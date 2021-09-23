@@ -12,17 +12,15 @@ import reportWebVitals from 'reportWebVitals';
 import { Hotkeys } from 'util/Hotkeys';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <GridContextProvider>
-      <DrawerContextProvider>
-        <HotkeysProvider>
-          <Hotkeys>
-            <App />
-          </Hotkeys>
-        </HotkeysProvider>
-      </DrawerContextProvider>
-    </GridContextProvider>
-  </React.StrictMode>,
+  <GridContextProvider>
+    <DrawerContextProvider>
+      <HotkeysProvider>
+        <Hotkeys>
+          <App />
+        </Hotkeys>
+      </HotkeysProvider>
+    </DrawerContextProvider>
+  </GridContextProvider>,
   document.getElementById('root')
 );
 
