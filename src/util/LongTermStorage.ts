@@ -31,13 +31,13 @@ export class LongTermStorage<T> {
         }
         const parsed: LongTermStorageWrapper<T> = JSON.parse(raw)
         if (parsed.version === this.version) {
-            return parsed.data
+            return {...this.init, ...parsed.data}
         }
         const upgrade = this.upgrades[parsed.version]
         if (upgrade == null) {
             return this.init
         }
-        return upgrade(parsed.data)
+        return {...this.init, ...upgrade(parsed.data)}
     }
 
     public set(data: T) {
