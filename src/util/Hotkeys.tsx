@@ -1,16 +1,18 @@
 import { HotkeysTarget2 } from "@blueprintjs/core"
 import { DrawerActionType, DrawerContext } from "context/DrawerContext"
 import { GridActionType, GridContext } from "context/GridContext"
+import { SettingsContext } from "context/SettingsContext"
 import React from "react"
 
 export const Hotkeys: React.FunctionComponent<React.PropsWithChildren<{}>> = ({ children }) => {
     const grid = React.useContext(GridContext)
     const drawers = React.useContext(DrawerContext)
+    const settings = React.useContext(SettingsContext)
 
     return (
         <HotkeysTarget2 hotkeys={[
             {
-                combo: "b",
+                combo: settings.BoardHotkey,
                 global: true,
                 label: "Open Boards - Switch and share your current board",
                 onKeyDown: () => {
@@ -21,7 +23,7 @@ export const Hotkeys: React.FunctionComponent<React.PropsWithChildren<{}>> = ({ 
                 },
             },
             {
-                combo: "c",
+                combo: settings.ContextHotkey,
                 global: true,
                 label: "Open Context - Auto fill parameters with global values",
                 onKeyDown: () => {
@@ -32,7 +34,7 @@ export const Hotkeys: React.FunctionComponent<React.PropsWithChildren<{}>> = ({ 
                 },
             },
             {
-                combo: "a",
+                combo: settings.AppsHotkey,
                 global: true,
                 label: "Open Apps - Provides tiles to be added to your dashboard",
                 onKeyDown: () => {
@@ -43,7 +45,7 @@ export const Hotkeys: React.FunctionComponent<React.PropsWithChildren<{}>> = ({ 
                 },
             },
             {
-                combo: "f",
+                combo: settings.FiltersHotkey,
                 global: true,
                 label: "Open Filters - highlight tiles based on criteria",
                 onKeyDown: () => {
@@ -54,7 +56,7 @@ export const Hotkeys: React.FunctionComponent<React.PropsWithChildren<{}>> = ({ 
                 },
             },
             {
-                combo: "e",
+                combo: settings.EditHotkey,
                 global: true,
                 label: "Toggle Edit mode - Allows for resizing and moving of tiles",
                 onKeyDown: () => {
@@ -65,7 +67,7 @@ export const Hotkeys: React.FunctionComponent<React.PropsWithChildren<{}>> = ({ 
                 },
             },
             {
-                combo: "s",
+                combo: settings.SettingsHotkey,
                 global: true,
                 label: "Open Settings - General settings menu for customizing the UI",
                 onKeyDown: () => {

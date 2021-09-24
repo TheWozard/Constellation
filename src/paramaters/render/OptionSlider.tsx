@@ -1,5 +1,5 @@
 import { FormGroup, Slider } from "@blueprintjs/core";
-import { ParameterRenderer, ParameterRendererFactory } from "paramaters";
+import { ParameterRenderer } from "paramaters";
 import React from "react";
 
 interface Props<T> {
@@ -39,7 +39,7 @@ export function OptionSlider<T>({ options, labels, title, help, showTrackFill }:
                         setIndex(target)
                         setValue(options[target])
                     }}
-                    labelStepSize={1}
+                    labelValues={[]}
                     labelRenderer={(value) => {
                         if (labels != null && value < labels.length) {
                             return labels[value]
@@ -50,8 +50,4 @@ export function OptionSlider<T>({ options, labels, title, help, showTrackFill }:
             </FormGroup>
         )
     }
-}
-
-export function OptionSliderOfType<T>(): ParameterRendererFactory<T, Props<T>> {
-    return OptionSlider
 }

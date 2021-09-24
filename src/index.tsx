@@ -14,7 +14,7 @@ import { Hotkeys } from 'util/Hotkeys';
 ReactDOM.render(
   <GridContextProvider>
     <DrawerContextProvider>
-      <HotkeysProvider>
+      <HotkeysProvider >
         <Hotkeys>
           <App />
         </Hotkeys>

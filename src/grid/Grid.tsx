@@ -1,7 +1,7 @@
+import { GridActionType, GridContext } from 'context/GridContext';
+import { Tile } from 'grid/tile/Tile';
 import React from 'react';
 import ReactGridLayout, { WidthProvider } from 'react-grid-layout';
-import { GridActionType, GridContext } from 'context/GridContext';
-import { GridTile } from 'grid/tile/GridTile';
 
 const ResponsiveGridLayout = WidthProvider(ReactGridLayout);
 
@@ -19,9 +19,9 @@ export const Grid: React.FunctionComponent = () => {
             }}
             compactType={null}
         >
-            <div key="a"><GridTile>a</GridTile></div>
-            <div key="b"><GridTile>b</GridTile></div>
-            <div key="c"><GridTile>c</GridTile></div>
+            {grid.state.layout.map((out) => (
+                <div key={out.i}><Tile grid_id={out.i} tile={out.tile}/></div>
+            ))}
         </ResponsiveGridLayout>
     )
 }

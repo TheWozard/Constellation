@@ -31,6 +31,7 @@ export enum GridActionType {
     SetLayout,
 
     DeleteID,
+    AppendToLayout,
 }
 
 const DefaultGridContextStorage: GridState = {
@@ -83,7 +84,12 @@ const GridContextReducer: React.Reducer<GridState, GridAction> = (prev, action) 
             break;
         case GridActionType.DeleteID:
             if (action.id != null) {
-                return { ...prev, layout: prev.layout.filter(({i}) => i === action.id) }
+                return { ...prev, layout: prev.layout.filter(({ i }) => i === action.id) }
+            }
+            break;
+        case GridActionType.AppendToLayout:
+            if (action.layout != null) {
+                return { ...prev, layout: [...prev.layout, ...action.layout] }
             }
             break;
     }

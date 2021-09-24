@@ -4,13 +4,13 @@ import { TextTile } from "grid/tile/TextTile";
 import { UnknownTile } from "grid/tile/UnknownTile";
 import { useContext } from "react";
 
-enum TileType {
+export enum TileType {
     Text = "text"
 }
 
 interface Props {
     tile: TileData
-    id: string
+    grid_id: string
 }
 
 export interface TileData{
@@ -19,14 +19,14 @@ export interface TileData{
 }
 
 
-export const Tile: React.FunctionComponent<Props> = ({tile, id}) => {
+export const Tile: React.FunctionComponent<Props> = ({tile, grid_id}) => {
     const { state, dispatch } = useContext(GridContext)
 
     return (
         <Card className={"grid-card"} >
             {state.editable && <Button className="delete-button" intent={Intent.DANGER} icon="cross" onClick={() => {
                 dispatch({
-                    type: GridActionType.DeleteID, id,
+                    type: GridActionType.DeleteID, id: grid_id,
                 })
             }}/>}
             <TileCore tile={tile} />

@@ -1,6 +1,6 @@
 import _ from "lodash";
 import { GenericParameters } from "paramaters";
-import React, { Children } from "react";
+import React from "react";
 
 interface Props {
     className?: string
@@ -26,7 +26,7 @@ export const ParameterList: React.FunctionComponent<React.PropsWithChildren<Prop
             // validation
             const final = { ...data }
             Object.keys(final).forEach((key) => {
-                if (_.isEmpty(final[key])) {
+                if (typeof final[key] !== "number" && _.isEmpty(final[key])) {
                     delete final[key]
                 }
             })

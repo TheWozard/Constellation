@@ -24,6 +24,10 @@ body {
   height: 100%;
 }
 
+.even-buttons {
+  flex: 1 !important
+}
+
 .delete-button {
   position: absolute;
   top: $pt-grid-size;
@@ -31,11 +35,38 @@ body {
 }
 
 .drawer-padding {
-  padding: $pt-grid-size * 3
+  padding: $pt-grid-size*1 $pt-grid-size * 3
+}
+
+.drawer-full {
+  height: 100%
+}
+
+.flex-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 100%;
+  overflow: auto;
+}
+
+.flex-spacer {
+  flex: 1
+}
+
+.flex-split {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .margin-horizontal-spacing {
   > :not(:first-child){
     margin-left: $pt-grid-size;
   }
+}
+
+.bp3-form-group{
+  width: 100%;
+  padding: 0 $pt-grid-size;
 }
