@@ -19,9 +19,17 @@ interface GridLayout extends ReactGridLayout.Layout {
     tile: TileData
 }
 
+type PureOmission = "i" | "x" | "y"
+
+export type PureLayout = Omit<ReactGridLayout.Layout, PureOmission>
+
+export type PureGridLayout  = Omit<GridLayout, PureOmission>
+
 interface GridAction extends Partial<GridState> {
     type: GridActionType
     id?: string
+    value?: GridLayout
+    gridLayout?: ReactGridLayout.Layout[]
 }
 
 export enum GridActionType {
@@ -31,7 +39,10 @@ export enum GridActionType {
     SetLayout,
 
     DeleteID,
+
     AppendToLayout,
+    SetGridLayout,
+    SetGridLayoutItem,
 }
 
 const DefaultGridContextStorage: GridState = {
@@ -84,12 +95,33 @@ const GridContextReducer: React.Reducer<GridState, GridAction> = (prev, action) 
             break;
         case GridActionType.DeleteID:
             if (action.id != null) {
-                return { ...prev, layout: prev.layout.filter(({ i }) => i === action.id) }
+                return { ...prev, layout: prev.layout.filter(({ i }) => i !== action.id) }
             }
             break;
         case GridActionType.AppendToLayout:
             if (action.layout != null) {
-                return { ...prev, layout: [...prev.layout, ...action.layout] }
+                return { ...prev, layout: [...prev.layout, ...action.layout.map(ReIndexLayout)] }
+            }
+            break;
+        case GridActionType.SetGridLayout:
+            if (action.gridLayout != null) {
+                const index = action.gridLayout.reduce<{ [s: string]: ReactGridLayout.Layout }>((prev, current) => {
+                    prev[current.i] = current
+                    return prev
+                }, {})
+                return { ...prev, layout: prev.layout.map((layout) => ({ ...layout, ...index[layout.i] })) }
+            }
+            break;
+        case GridActionType.SetGridLayoutItem:
+            if (action.value != null) {
+                return {
+                    ...prev, layout: prev.layout.map((layout) => {
+                        if (layout.i === action.value?.i) {
+                            return action.value
+                        }
+                        return layout
+                    })
+                }
             }
             break;
     }
@@ -112,10 +144,28 @@ const GridContextReducerStorageWrapper: React.Reducer<GridState, GridAction> = (
 
 // GridContextProvider provides the reducer based context
 export const GridContextProvider: React.FunctionComponent<React.PropsWithChildren<{}>> = ({ children }) => {
-    const [state, dispatch] = React.useReducer(GridContextReducerStorageWrapper, { ...DefaultGridContextStorage, ...GridContextStorage.get() })
+    const [state, dispatch] = React.useReducer(GridContextReducerStorageWrapper, { ...DefaultGridContextStorage, ...GetGridContextStorageReIndexed() })
     return (
         <GridContext.Provider value={{ state, dispatch }}>
             {children}
         </GridContext.Provider>
     )
+}
+
+const GetGridContextStorageReIndexed = (): GridStatePersistent => {
+    const state = GridContextStorage.get()
+    state.layout = state.layout.map(ReIndexLayout)
+    return state
+}
+
+const ReIndexLayout = (layout: GridLayout | PureGridLayout): GridLayout => ({
+    x: 0, y: 0, ...layout, i: GetUniqueID()
+})
+
+let ID = 0
+
+const GetUniqueID = (): string => {
+    const id = `${ID}`
+    ID++
+    return id
 }

@@ -1,6 +1,6 @@
 import { Button, Card, Intent } from "@blueprintjs/core";
 import { GridActionType, GridContext } from "context/GridContext";
-import { TextTile } from "grid/tile/TextTile";
+import { TileIndex } from "grid/tile";
 import { UnknownTile } from "grid/tile/UnknownTile";
 import { useContext } from "react";
 
@@ -11,6 +11,7 @@ export enum TileType {
 interface Props {
     tile: TileData
     grid_id: string
+    setTile: (tile: TileData) => void
 }
 
 export interface TileData{
@@ -19,7 +20,7 @@ export interface TileData{
 }
 
 
-export const Tile: React.FunctionComponent<Props> = ({tile, grid_id}) => {
+export const Tile: React.FunctionComponent<Props> = ({tile, grid_id, setTile}) => {
     const { state, dispatch } = useContext(GridContext)
 
     return (
@@ -29,20 +30,18 @@ export const Tile: React.FunctionComponent<Props> = ({tile, grid_id}) => {
                     type: GridActionType.DeleteID, id: grid_id,
                 })
             }}/>}
-            <TileCore tile={tile} />
+            <TileCore tile={tile} setTile={setTile} grid_id={grid_id} />
         </Card>
     )
 }
 
-interface TileCoreProps {
-    tile: TileData
-}
-
-const TileCore: React.FunctionComponent<TileCoreProps> = ({ tile }) => {
-    switch (tile.type) {
-        case TileType.Text:
-            return (<TextTile />)
-        default:
-            return (<UnknownTile />)
+const TileCore: React.FunctionComponent<Props> = ({ tile, setTile }) => {
+    if (tile == null) {
+        return (<UnknownTile />)
     }
+    const TILE = TileIndex[tile.type]
+    if (TILE != null) {
+        return (<TILE.renderTile data={tile.data} setData={(data: any) => {setTile({...tile, data})}} />)
+    }
+    return (<UnknownTile />)
 }

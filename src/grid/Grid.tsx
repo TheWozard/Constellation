@@ -15,12 +15,14 @@ export const Grid: React.FunctionComponent = () => {
             isResizable={grid.state.resizable}
             isDraggable={grid.state.draggable}
             onLayoutChange={(layout) => {
-                grid.dispatch({ type: GridActionType.SetLayout, layout: layout as any }) //FIXME: Temporary hack to enable build
+                grid.dispatch({ type: GridActionType.SetGridLayout, gridLayout: layout }) //FIXME: Temporary hack to enable build
             }}
             compactType={null}
         >
             {grid.state.layout.map((out) => (
-                <div key={out.i}><Tile grid_id={out.i} tile={out.tile}/></div>
+                <div key={out.i}><Tile grid_id={out.i} tile={out.tile} setTile={(tile) => {
+                    grid.dispatch({ type: GridActionType.SetGridLayoutItem, value: {...out, tile} })
+                }}/></div>
             ))}
         </ResponsiveGridLayout>
     )
