@@ -15,13 +15,12 @@ interface TextTileData {
 
 export const TextTile: React.FunctionComponent<Props> = ({ data, setData }) => {
     const { state } = React.useContext(GridContext)
-
     return (
         <React.Fragment>
             {!state.editable ?
-                <ReactMarkdown className={"overflow-scroll"}>{data.text}</ReactMarkdown>
+                <ReactMarkdown className={"overflow-scroll-hidden tile-text-area"}>{data.text}</ReactMarkdown>
                 :
-                <div className={"flex-list"}>
+                <div className={"flex-list tile-text-area"}>
                     <TextArea className={"full-text-area"} fill growVertically value={data.text} onChange={(event) => {
                         setData({ ...data, text: event.target.value })
                     }} onMouseDown={(event) => {
@@ -40,8 +39,9 @@ export const TextTile: React.FunctionComponent<Props> = ({ data, setData }) => {
 export const TextTileRenderer: TileRenderer<TextTileData> = {
     type: "text",
     filters: [],
-    layout: { h: 1, w: 1 },
-    createNew: { text: "" },
-    renderTile: TextTile,
-    renderStore: () => (<TextTile data={{ text: "Generic text tile for entering any data you want. Uses Markdown for formatting!" }} setData={() => { }} />),
+    layout: () => ({ h: 2, w: 2 }),
+    layoutStore: () => ({ h: 2, w: 2 }),
+    createNew: () => ({ text: "" }),
+    RenderTile: TextTile,
+    RenderStore: () => (<TextTile data={{ text: "Generic text tile for entering any data you want. Uses Markdown for formatting!" }} setData={() => { }} />),
 }

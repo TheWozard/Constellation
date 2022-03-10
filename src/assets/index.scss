@@ -22,10 +22,11 @@ body {
 
 .grid-card {
   height: 100%;
+  padding: 0;
 }
 
 .even-buttons {
-  flex: 1 !important
+  flex: 1 !important;
 }
 
 .delete-button {
@@ -35,11 +36,15 @@ body {
 }
 
 .drawer-padding {
-  padding: $pt-grid-size*1 $pt-grid-size * 3
+  padding: $pt-grid-size * 1 $pt-grid-size * 3;
+}
+
+.basic-padding {
+  padding: $pt-grid-size * 1;
 }
 
 .drawer-full {
-  height: 100%
+  height: 100%;
 }
 
 .flex-list {
@@ -49,6 +54,14 @@ body {
   height: 100%;
 }
 
+.grid-list {
+  display: flex;
+  flex-wrap: wrap;
+  > * {
+    margin: $pt-grid-size * 0.2;
+  }
+}
+
 .overflow-scroll {
   height: 100%;
   width: 100%;
@@ -56,7 +69,7 @@ body {
 }
 
 .flex-spacer {
-  flex: 1
+  flex: 1;
 }
 
 .flex-split {
@@ -66,17 +79,71 @@ body {
 }
 
 .margin-horizontal-spacing {
-  > :not(:first-child){
-    margin-left: $pt-grid-size;
+  > :not(:last-child) {
+    margin-right: $pt-grid-size;
   }
 }
 
-.bp3-form-group{
+.margin-vertical-spacing {
+  > :not(:first-child) {
+    margin-top: $pt-grid-size;
+  }
+}
+
+.bp3-form-group {
   width: 100%;
   padding: 0 $pt-grid-size;
 }
 
-.full-text-area{
+.full-text-area {
   resize: none;
   height: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.full-text-area::-webkit-scrollbar {
+  display: none;
+}
+
+.overflow-scroll-hidden {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.overflow-scroll-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.tile-text-area {
+  padding: $pt-grid-size;
+}
+
+.tile-hover {
+  position: relative;
+  .tile-hover-menu {
+    padding: 0.5 * $pt-grid-size;
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: $pt-grid-size * 4;
+  }
+  &:hover {
+    .tile-hover-menu {
+      display: block;
+    }
+  }
+}
+
+.flex-split-body {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  .content {
+    flex: 1;
+  }
 }

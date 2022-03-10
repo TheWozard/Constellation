@@ -35,12 +35,12 @@ export const Header = () => {
                         value: !drawers.state.apps,
                     })
                 }} />
-                <SettingsButton icon="settings" text={"Filter"} minimal active={drawers.state.filter} intent={drawers.state.filter ? Intent.PRIMARY : Intent.NONE} onClick={() => {
+                {/* <SettingsButton icon="settings" text={"Filter"} minimal active={drawers.state.filter} intent={drawers.state.filter ? Intent.PRIMARY : Intent.NONE} onClick={() => {
                     drawers.dispatch({
                         type: DrawerActionType.SetFilter,
                         value: !drawers.state.filter,
                     })
-                }} />
+                }} /> */}
                 <SettingsButton icon="edit" text={"Edit"} minimal active={state.editable} intent={state.editable ? Intent.PRIMARY : Intent.NONE} onClick={() => {
                     dispatch({
                         type: GridActionType.SetEditable,

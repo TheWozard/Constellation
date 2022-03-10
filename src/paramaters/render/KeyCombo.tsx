@@ -14,25 +14,28 @@ export const KeyCombo: ParameterRendererFactory<KeyComboString, Props> = ({ titl
     return ({ name, param, value, setValue }) => {
 
         return (
-        <FormGroup
-            label={title || name}
-            labelFor={`${name}-input`}
-            helperText={help}
-            labelInfo={param.required ? "(Required)" : undefined}
-        >
-            <InputGroup
-                id={`${name}-input`}
-                placeholder={placeholder || title || name}
-                value={value}
-                onKeyDown={(event) => {
-                    event.stopPropagation()
-                    event.preventDefault()
-                    setValue(getKeyComboString(event as any))
-                }}
-                fill
-                disabled={param.disabled}
-            />
-        </FormGroup>
-    )
-            }
+            <FormGroup
+                label={title || name}
+                labelFor={`${name}-input`}
+                helperText={help}
+                labelInfo={param.required ? "(Required)" : undefined}
+            >
+                <InputGroup
+                    id={`${name}-input`}
+                    placeholder={placeholder || title || name}
+                    value={value}
+                    onChange={() => {
+                        // This exists to prevent errors from being propagated. The value is updated through the onKeyDown Event instead
+                    }}
+                    onKeyDown={(event) => {
+                        event.stopPropagation()
+                        event.preventDefault()
+                        setValue(getKeyComboString(event as any))
+                    }}
+                    fill
+                    disabled={param.disabled}
+                />
+            </FormGroup>
+        )
+    }
 }

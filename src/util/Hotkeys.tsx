@@ -44,17 +44,17 @@ export const Hotkeys: React.FunctionComponent<React.PropsWithChildren<{}>> = ({ 
                     })
                 },
             },
-            {
-                combo: settings.FiltersHotkey,
-                global: true,
-                label: "Open Filters - highlight tiles based on criteria",
-                onKeyDown: () => {
-                    drawers.dispatch({
-                        type: DrawerActionType.SetFilter,
-                        value: !drawers.state.filter
-                    })
-                },
-            },
+            // {
+            //     combo: settings.FiltersHotkey,
+            //     global: true,
+            //     label: "Open Filters - highlight tiles based on criteria",
+            //     onKeyDown: () => {
+            //         drawers.dispatch({
+            //             type: DrawerActionType.SetFilter,
+            //             value: !drawers.state.filter
+            //         })
+            //     },
+            // },
             {
                 combo: settings.EditHotkey,
                 global: true,

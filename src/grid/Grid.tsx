@@ -20,9 +20,9 @@ export const Grid: React.FunctionComponent = () => {
             compactType={null}
         >
             {grid.state.layout.map((out) => (
-                <div key={out.i}><Tile grid_id={out.i} tile={out.tile} setTile={(tile) => {
-                    grid.dispatch({ type: GridActionType.SetGridLayoutItem, value: {...out, tile} })
-                }}/></div>
+                <div key={out.i}><Tile pinned={out.static || false} grid_id={out.i} tile={out.tile} setTile={(tile) => {
+                    grid.dispatch({ type: GridActionType.SetGridLayoutItem, value: { ...out, tile } })
+                }} /></div>
             ))}
         </ResponsiveGridLayout>
     )

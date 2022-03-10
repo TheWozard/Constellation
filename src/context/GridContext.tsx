@@ -1,5 +1,5 @@
 import { Intent } from "@blueprintjs/core";
-import { TileData } from "grid/tile/Tile";
+import { TileData } from "grid/tile/interface";
 import React from "react";
 import ReactGridLayout from "react-grid-layout";
 import { LongTermStorage } from "util/LongTermStorage";
@@ -15,7 +15,7 @@ interface GridStatePersistent {
     layout: GridLayout[]
 }
 
-interface GridLayout extends ReactGridLayout.Layout {
+export interface GridLayout extends ReactGridLayout.Layout {
     tile: TileData
 }
 
@@ -23,7 +23,7 @@ type PureOmission = "i" | "x" | "y"
 
 export type PureLayout = Omit<ReactGridLayout.Layout, PureOmission>
 
-export type PureGridLayout  = Omit<GridLayout, PureOmission>
+export type PureGridLayout = Omit<GridLayout, PureOmission>
 
 interface GridAction extends Partial<GridState> {
     type: GridActionType
@@ -39,6 +39,7 @@ export enum GridActionType {
     SetLayout,
 
     DeleteID,
+    PinID,
 
     AppendToLayout,
     SetGridLayout,
@@ -96,6 +97,16 @@ const GridContextReducer: React.Reducer<GridState, GridAction> = (prev, action) 
         case GridActionType.DeleteID:
             if (action.id != null) {
                 return { ...prev, layout: prev.layout.filter(({ i }) => i !== action.id) }
+            }
+            break;
+        case GridActionType.PinID:
+            if (action.id != null) {
+                let index = prev.layout.findIndex((layout) => layout.i === action.id)
+                if (index >= 0) {
+                    let layout = [...prev.layout]
+                    layout[index] = { ...layout[index], static: !layout[index].static }
+                    return { ...prev, layout }
+                }
             }
             break;
         case GridActionType.AppendToLayout:
