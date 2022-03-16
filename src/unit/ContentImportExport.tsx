@@ -2,7 +2,7 @@ import { Button, ButtonProps, ControlGroup, FormGroup, InputGroup, Intent } from
 import { GridActionType, GridContext } from "context/GridContext";
 import { GridContent } from "grid/Interface";
 import React from "react";
-import { Toast, ToastError, ToastInfo, ToastSuccess } from "util/Toaster";
+import { Toast, ToastError, ToastSuccess } from "util/Toaster";
 
 interface Props extends ButtonProps {
     content: GridContent

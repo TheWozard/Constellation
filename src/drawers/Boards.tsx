@@ -1,10 +1,10 @@
-import { Button, Classes, Drawer, Intent, Position, Slider } from "@blueprintjs/core"
+import { Classes, Drawer, Intent, Position, Slider } from "@blueprintjs/core"
 import { DrawerActionType, DrawerContext } from "context/DrawerContext"
 import { GridActionType, GridContext } from "context/GridContext"
 import React from "react"
-import { ContentImportExport } from "unit/ContentImportExport"
-import { ContentDisplay } from "unit/ContentDisplay"
 import { ConfirmButton } from "unit/ConfirmButton"
+import { ContentDisplay } from "unit/ContentDisplay"
+import { ContentImportExport } from "unit/ContentImportExport"
 
 export const BoardsDrawer = () => {
     const drawer = React.useContext(DrawerContext)
