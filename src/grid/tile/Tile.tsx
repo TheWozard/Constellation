@@ -1,9 +1,11 @@
 import { Button, Card, Intent } from "@blueprintjs/core";
 import { GridActionType, GridContext } from "context/GridContext";
 import { TileIndex } from "grid/tile";
-import { StyleFromTileCustomization, TileData } from "grid/tile/interface";
+import { StyleFromTileCustomization, TileCustomization, TileData } from "grid/tile/interface";
 import { UnknownTile } from "grid/tile/UnknownTile";
+import { CreateInputRequest } from "portals/InputRequest";
 import { useContext } from "react";
+import { ColorInput } from "unit/inputs.tsx/ColorInput";
 
 interface Props {
     pinned: boolean,
@@ -24,14 +26,19 @@ export const Tile: React.FunctionComponent<Props> = ({ pinned, tile, grid_id, se
                         type: GridActionType.DeleteID, id: grid_id,
                     })
                 }} />
-                <Button intent={Intent.NONE} icon="draw" onClick={() => {
-                    dispatch({
-                        type: GridActionType.DeleteID, id: grid_id,
-                    })
+                <Button intent={Intent.NONE} icon="draw" onClick={async () => {
+                    try {
+                        const custom = await CreateInputRequest<TileCustomization>({ ...tile.customization }, {
+                            backgroundColor: ColorInput("Background Color", "#000000")
+                        }, { icon: "draw" })
+                        dispatch({ type: GridActionType.SetCustomizationByID, id: grid_id, customization: { ...tile.customization, ...custom } })
+                    } catch (err) {
+                        console.log(err)
+                    }
                 }} />
                 <Button intent={pinned ? Intent.PRIMARY : Intent.NONE} icon="pin" onClick={() => {
                     dispatch({
-                        type: GridActionType.PinID, id: grid_id,
+                        type: GridActionType.PinTileByID, id: grid_id,
                     })
                 }} />
             </div>}

@@ -1,5 +1,6 @@
 import { Intent } from "@blueprintjs/core";
-import { TileData } from "grid/tile/interface";
+import { GridContent, GridLayout } from "grid/Interface";
+import { TileCustomization } from "grid/tile/interface";
 import React from "react";
 import ReactGridLayout from "react-grid-layout";
 import { LongTermStorage } from "util/LongTermStorage";
@@ -12,11 +13,7 @@ interface GridState extends GridStatePersistent {
 }
 
 interface GridStatePersistent {
-    layout: GridLayout[]
-}
-
-export interface GridLayout extends ReactGridLayout.Layout {
-    tile: TileData
+    content: GridContent
 }
 
 type PureOmission = "i" | "x" | "y"
@@ -28,8 +25,9 @@ export type PureGridLayout = Omit<GridLayout, PureOmission>
 interface GridAction extends Partial<GridState> {
     type: GridActionType
     id?: string
+    customization?: TileCustomization
     value?: GridLayout
-    gridLayout?: ReactGridLayout.Layout[]
+    layout?: GridLayout[]
 }
 
 export enum GridActionType {
@@ -39,18 +37,25 @@ export enum GridActionType {
     SetLayout,
 
     DeleteID,
-    PinID,
+    PinTileByID,
+    SetCustomizationByID,
 
     AppendToLayout,
-    SetGridLayout,
-    SetGridLayoutItem,
+    MergeLayout,
+    SetLayoutItem,
 }
 
 const DefaultGridContextStorage: GridState = {
     draggable: false,
     resizable: false,
     editable: false,
-    layout: [],
+    content: {
+        name: "Default",
+        description: "Default starting board",
+        last_updated: new Date(),
+        context: {},
+        layout: [],
+    }
 }
 
 let ToastClose: (() => void) | null = null
@@ -91,47 +96,60 @@ const GridContextReducer: React.Reducer<GridState, GridAction> = (prev, action) 
             break;
         case GridActionType.SetLayout:
             if (action.layout != null) {
-                return { ...prev, layout: action.layout }
+                return { ...prev, content: { ...prev.content, layout: action.layout } }
             }
             break;
         case GridActionType.DeleteID:
             if (action.id != null) {
-                return { ...prev, layout: prev.layout.filter(({ i }) => i !== action.id) }
+                return { ...prev, content: { ...prev.content, layout: prev.content.layout.filter(({ i }) => i !== action.id) } }
             }
             break;
-        case GridActionType.PinID:
+        case GridActionType.PinTileByID:
             if (action.id != null) {
-                let index = prev.layout.findIndex((layout) => layout.i === action.id)
+                let index = prev.content.layout.findIndex((layout) => layout.i === action.id)
                 if (index >= 0) {
-                    let layout = [...prev.layout]
+                    let layout = [...prev.content.layout]
                     layout[index] = { ...layout[index], static: !layout[index].static }
-                    return { ...prev, layout }
+                    return { ...prev, content: { ...prev.content, layout } }
+                }
+            }
+            break;
+        case GridActionType.SetCustomizationByID:
+            if (action.id != null && action.customization != null) {
+                let index = prev.content.layout.findIndex((layout) => layout.i === action.id)
+                if (index >= 0) {
+                    let layout = [...prev.content.layout]
+                    layout[index] = { ...layout[index], tile: { ...layout[index].tile, customization: action.customization } }
+                    return { ...prev, content: { ...prev.content, layout } }
                 }
             }
             break;
         case GridActionType.AppendToLayout:
             if (action.layout != null) {
-                return { ...prev, layout: [...prev.layout, ...action.layout.map(ReIndexLayout)] }
+                return { ...prev, content: { ...prev.content, layout: [...prev.content.layout, ...action.layout.map(ReIndexLayout)] } }
             }
             break;
-        case GridActionType.SetGridLayout:
-            if (action.gridLayout != null) {
-                const index = action.gridLayout.reduce<{ [s: string]: ReactGridLayout.Layout }>((prev, current) => {
+        case GridActionType.MergeLayout:
+            if (action.layout != null) {
+                // Convert incoming list to a lookup index by id
+                const index = action.layout.reduce<{ [s: string]: ReactGridLayout.Layout }>((prev, current) => {
                     prev[current.i] = current
                     return prev
                 }, {})
-                return { ...prev, layout: prev.layout.map((layout) => ({ ...layout, ...index[layout.i] })) }
+                return { ...prev, content: { ...prev.content, layout: prev.content.layout.map((layout) => ({ ...layout, ...index[layout.i] })) } }
             }
             break;
-        case GridActionType.SetGridLayoutItem:
+        case GridActionType.SetLayoutItem:
             if (action.value != null) {
                 return {
-                    ...prev, layout: prev.layout.map((layout) => {
-                        if (layout.i === action.value?.i) {
-                            return action.value
-                        }
-                        return layout
-                    })
+                    ...prev, content: {
+                        ...prev.content, layout: prev.content.layout.map((layout) => {
+                            if (layout.i === action.value?.i) {
+                                return action.value
+                            }
+                            return layout
+                        })
+                    }
                 }
             }
             break;
@@ -144,12 +162,14 @@ export const GridContext = React.createContext<{
 }>({} as any);
 
 // Storage for the state of this context to persist between sessions
-const GridContextStorage = new LongTermStorage<GridStatePersistent>("grid-context", { layout: DefaultGridContextStorage.layout }, "1")
+const GridContextStorage = new LongTermStorage<GridStatePersistent>("grid-context", { content: DefaultGridContextStorage.content }, "2", {
+    "1": (prev) => ({ content: { ...DefaultGridContextStorage.content, layout: (prev as any).layout } })
+})
 
 // Hooks in the GridContextStorage to automatically store changes to the context
 const GridContextReducerStorageWrapper: React.Reducer<GridState, GridAction> = (prev, action) => {
     const state = GridContextReducer(prev, action)
-    GridContextStorage.set({ layout: state.layout })
+    GridContextStorage.set({ content: state.content })
     return state
 }
 
@@ -165,7 +185,10 @@ export const GridContextProvider: React.FunctionComponent<React.PropsWithChildre
 
 const GetGridContextStorageReIndexed = (): GridStatePersistent => {
     const state = GridContextStorage.get()
-    state.layout = state.layout.map(ReIndexLayout)
+    state.content = {
+        ...state.content,
+        layout: state.content.layout.map(ReIndexLayout)
+    }
     return state
 }
 

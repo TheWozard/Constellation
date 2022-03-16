@@ -1,4 +1,3 @@
-import { HotkeysProvider } from '@blueprintjs/core';
 import '@blueprintjs/core/lib/css/blueprint.css';
 import App from 'App';
 import 'assets/index.scss';
@@ -13,11 +12,9 @@ import { Hotkeys } from 'util/Hotkeys';
 ReactDOM.render(
   <GridContextProvider>
     <DrawerContextProvider>
-      <HotkeysProvider >
-        <Hotkeys>
-          <App />
-        </Hotkeys>
-      </HotkeysProvider>
+      <Hotkeys>
+        <App />
+      </Hotkeys>
     </DrawerContextProvider>
   </GridContextProvider>,
   document.getElementById('root')

@@ -78,7 +78,6 @@ const RendersToLayout = (tiles: TileRenderer<any>[]): ReactGridLayout.Layout[] =
         }
         layouts.push(layout)
     })
-    console.log(layouts)
     return layouts
 }
 
@@ -109,6 +108,7 @@ export const AppsDrawer = () => {
                         cols={Cols}
                         isResizable={false}
                         isDraggable={false}
+                        useCSSTransforms={false}
                     >
                         {TileRenderers.map((tile, index): React.ReactNode => (
                             <div key={`${index}`} id={`${index}`}><Card style={{ height: "100%", ...tile.customization != null ? StyleFromTileCustomization(tile.customization()) : {} }} interactive onClick={() => {

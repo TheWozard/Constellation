@@ -16,7 +16,7 @@ export const SimpleTile: React.FunctionComponent<Props> = ({ data, setData }) =>
 export const SimpleTileRenderer: TileRenderer<{}> = {
     type: "simple",
     filters: [],
-    layout: () => ({ h: 1, w: 1 }),
+    layout: () => ({ h: 1, w: 1, maxH: 1, maxW: 1 }),
     layoutStore: () => ({ h: 1, w: 1 }),
     createNew: () => ({}),
     customization: () => {

@@ -1,6 +1,6 @@
 import { Card, H3, Intent, Tag } from "@blueprintjs/core";
 import { UI_TEXT } from "@blueprintjs/core/lib/esm/common/classes";
-import { GridLayout } from "context/GridContext";
+import { GridLayout } from "grid/Interface";
 import React from "react";
 
 interface Props {

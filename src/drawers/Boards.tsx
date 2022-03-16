@@ -23,7 +23,7 @@ export const BoardsDrawer = () => {
             }}
         >
             <div className={"drawer-padding drawer-full overflow-scroll-hidden"}>
-                <LayoutDisplay name={"Current"} description={"The current grid"} layout={grid.state.layout} />
+                <LayoutDisplay name={"Current"} description={"The current grid"} layout={grid.state.content.layout} />
             </div>
         </Drawer>
     )
