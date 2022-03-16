@@ -6,6 +6,7 @@ export interface GridContent {
     last_updated: Date
     layout: GridLayout[]
     context: GridContext
+    columns: number
 }
 
 export interface GridContext {

@@ -6,6 +6,7 @@ import { UnknownTile } from "grid/tile/UnknownTile";
 import { CreateInputRequest } from "portals/InputRequest";
 import { useContext } from "react";
 import { ColorInput } from "unit/inputs.tsx/ColorInput";
+import { ToastError, ToastSuccess, ToastWarning } from "util/Toaster";
 
 interface Props {
     pinned: boolean,
@@ -25,6 +26,7 @@ export const Tile: React.FunctionComponent<Props> = ({ pinned, tile, grid_id, se
                     dispatch({
                         type: GridActionType.DeleteID, id: grid_id,
                     })
+                    ToastError("Tile deleted")
                 }} />
                 <Button intent={Intent.NONE} icon="draw" onClick={async () => {
                     try {
@@ -32,8 +34,9 @@ export const Tile: React.FunctionComponent<Props> = ({ pinned, tile, grid_id, se
                             backgroundColor: ColorInput("Background Color", "#000000")
                         }, { icon: "draw" })
                         dispatch({ type: GridActionType.SetCustomizationByID, id: grid_id, customization: { ...tile.customization, ...custom } })
+                        ToastSuccess("Customization updated!")
                     } catch (err) {
-                        console.log(err)
+                        ToastWarning("Canceled editing customization")
                     }
                 }} />
                 <Button intent={pinned ? Intent.PRIMARY : Intent.NONE} icon="pin" onClick={() => {

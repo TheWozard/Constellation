@@ -1,8 +1,10 @@
-import { Classes, Drawer, Position } from "@blueprintjs/core"
+import { Button, Classes, Drawer, Intent, Position, Slider } from "@blueprintjs/core"
 import { DrawerActionType, DrawerContext } from "context/DrawerContext"
-import { GridContext } from "context/GridContext"
+import { GridActionType, GridContext } from "context/GridContext"
 import React from "react"
-import { LayoutDisplay } from "unit/LayoutDisplay"
+import { ContentImportExport } from "unit/ContentImportExport"
+import { ContentDisplay } from "unit/ContentDisplay"
+import { ConfirmButton } from "unit/ConfirmButton"
 
 export const BoardsDrawer = () => {
     const drawer = React.useContext(DrawerContext)
@@ -22,8 +24,23 @@ export const BoardsDrawer = () => {
                 })
             }}
         >
-            <div className={"drawer-padding drawer-full overflow-scroll-hidden"}>
-                <LayoutDisplay name={"Current"} description={"The current grid"} layout={grid.state.content.layout} />
+            <div className={"drawer-padding drawer-full overflow-scroll-hidden margin-vertical-spacing"}>
+                <ContentDisplay content={grid.state.content} />
+                <Slider
+                    min={4}
+                    max={20}
+                    onChange={(value) => {
+                        grid.dispatch({ type: GridActionType.SetGridColumns, columns: value })
+                    }}
+                    value={grid.state.content.columns}
+                    stepSize={1}
+                />
+                <ConfirmButton dialog={
+                    <span>Confirm resetting the current board. This will reset all board data. This action can <b>NOT</b> be undone.</span>
+                } icon={"reset"} text={"Reset"} intent={Intent.DANGER} onClick={() => {
+                    grid.dispatch({ type: GridActionType.ResetGrid })
+                }} />
+                <ContentImportExport content={grid.state.content} />
             </div>
         </Drawer>
     )

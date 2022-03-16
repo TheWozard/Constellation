@@ -1,6 +1,6 @@
 import { Button, Classes, Drawer, DrawerSize, Intent, Position } from "@blueprintjs/core"
 import { DrawerActionType, DrawerContext } from "context/DrawerContext"
-import { DefaultSettings, Settings, SettingsContext, SettingsUpdate, TextRendering } from "context/SettingsContext"
+import { DefaultSettings, Settings, SettingsContext, SettingsUpdate, TextRendering, ToastLevel } from "context/SettingsContext"
 import { Parameters } from "paramaters"
 import { ParameterList } from "paramaters/ParameterList"
 import { KeyCombo } from "paramaters/render/KeyCombo"
@@ -15,6 +15,14 @@ const SettingsParams: Parameters<Settings> = {
             title: "Render Button Text",
             options: [TextRendering.Hidden, TextRendering.FirstLetter, TextRendering.Full],
             labels: ["Hidden", "First Letter", "Full"],
+            even: true
+        })
+    },
+    ToastLevel: {
+        r: OptionButtons<ToastLevel>({
+            title: "Toast Level",
+            options: [ToastLevel.Info, ToastLevel.Success, ToastLevel.Warning, ToastLevel.Error],
+            labels: ["Info", "Success", "Warning", "Error"],
             even: true
         })
     },
@@ -58,12 +66,12 @@ export const SettingsDrawer = () => {
                     }}>
                     <div className={"flex-spacer"} />
                     <div className={"flex-split"}>
-                    <Button type={"submit"} icon={"tick"} intent={Intent.SUCCESS} />
-                    <ConfirmButton dialog={
-                        <span>Confirm resetting all current settings to their default values. This action can <b>NOT</b> be undone.</span>
-                    } icon={"reset"} text={"Reset"} intent={Intent.DANGER} minimal onClick={() => {
-                        SettingsUpdate(DefaultSettings)
-                    }}/>
+                        <Button type={"submit"} icon={"tick"} intent={Intent.SUCCESS} />
+                        <ConfirmButton dialog={
+                            <span>Confirm resetting all current settings to their default values. This action can <b>NOT</b> be undone.</span>
+                        } icon={"reset"} text={"Reset"} intent={Intent.DANGER} minimal onClick={() => {
+                            SettingsUpdate(DefaultSettings)
+                        }} />
                     </div>
                 </ParameterList>
             </div>

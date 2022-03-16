@@ -38,7 +38,6 @@ export const InputRequestPortal = <T extends object>(data: Partial<T>, form: Inp
                     if (failure) {
                         reject()
                     } else {
-                        console.log(internalData)
                         resolve(internalData)
                     }
                 }}

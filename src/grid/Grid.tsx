@@ -10,7 +10,7 @@ export const Grid: React.FunctionComponent = () => {
     return (
         <ResponsiveGridLayout
             layout={grid.state.content.layout}
-            cols={12}
+            cols={grid.state.content.columns}
             isResizable={grid.state.resizable}
             isDraggable={grid.state.draggable}
             onLayoutChange={(layout) => {

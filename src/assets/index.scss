@@ -39,6 +39,10 @@ body {
   padding: $pt-grid-size * 1 $pt-grid-size * 3;
 }
 
+.button-padding {
+  padding: 0 $pt-grid-size * 3;
+}
+
 .basic-padding {
   padding: $pt-grid-size * 1;
 }

@@ -28,6 +28,8 @@ interface GridAction extends Partial<GridState> {
     customization?: TileCustomization
     value?: GridLayout
     layout?: GridLayout[]
+    columns?: number
+    content?: GridContent
 }
 
 export enum GridActionType {
@@ -43,6 +45,9 @@ export enum GridActionType {
     AppendToLayout,
     MergeLayout,
     SetLayoutItem,
+    SetGridColumns,
+    ResetGrid,
+    SetGridContent,
 }
 
 const DefaultGridContextStorage: GridState = {
@@ -55,6 +60,7 @@ const DefaultGridContextStorage: GridState = {
         last_updated: new Date(),
         context: {},
         layout: [],
+        columns: 12,
     }
 }
 
@@ -151,6 +157,20 @@ const GridContextReducer: React.Reducer<GridState, GridAction> = (prev, action) 
                         })
                     }
                 }
+            }
+            break;
+        case GridActionType.SetGridColumns:
+            if (action.columns != null && action.columns > 0) {
+                return { ...prev, content: { ...prev.content, columns: action.columns } }
+            }
+            break;
+
+        // Large actions the control the entire grid
+        case GridActionType.ResetGrid:
+            return { ...prev, content: { ...DefaultGridContextStorage.content } }
+        case GridActionType.SetGridContent:
+            if (action.content != null) {
+                return { ...prev, content: action.content }
             }
             break;
     }
