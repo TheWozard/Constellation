@@ -8,7 +8,7 @@ export interface TileRenderer<T> {
     layoutStore?: () => PureLayout
     createNew: () => T
     customization?: () => TileCustomization
-    RenderTile: React.FunctionComponent<TileRendererProps<T>>
+    RenderTile: React.ComponentType<TileRendererProps<T>>
     RenderStore: React.FunctionComponent<{}>
 }
 

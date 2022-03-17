@@ -83,20 +83,20 @@ const RendersToLayout = (tiles: TileRenderer<any>[]): ReactGridLayout.Layout[] =
 
 const Layout = RendersToLayout(TileRenderers)
 
-export const AppsDrawer = () => {
+export const TilesDrawer = () => {
     const { state, dispatch } = React.useContext(DrawerContext)
     const grid = React.useContext(GridContext)
 
     return (
         <Drawer
             className={Classes.DARK}
-            isOpen={state.apps}
+            isOpen={state.tiles}
             position={Position.RIGHT}
-            title={"Apps"}
+            title={"Tiles"}
             icon={"applications"}
             onClose={() => {
                 dispatch({
-                    type: DrawerActionType.SetApps,
+                    type: DrawerActionType.SetTiles,
                     value: false,
                 })
             }}

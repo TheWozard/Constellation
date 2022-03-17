@@ -35,13 +35,13 @@ export const Hotkeys: React.FunctionComponent<React.PropsWithChildren<{}>> = ({ 
                     },
                 },
                 {
-                    combo: settings.AppsHotkey,
+                    combo: settings.TilesHotkey,
                     global: true,
-                    label: "Open Apps - Provides tiles to be added to your dashboard",
+                    label: "Open Tiles - Provides tiles to be added to your dashboard",
                     onKeyDown: () => {
                         drawers.dispatch({
-                            type: DrawerActionType.SetApps,
-                            value: !drawers.state.apps
+                            type: DrawerActionType.SetTiles,
+                            value: !drawers.state.tiles
                         })
                     },
                 },

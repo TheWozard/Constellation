@@ -3,7 +3,7 @@ import React from "react";
 interface DrawerState {
     boards: boolean
     context: boolean
-    apps: boolean
+    tiles: boolean
     settings: boolean
     filter: boolean
 }
@@ -16,7 +16,7 @@ interface DrawerAction {
 export enum DrawerActionType {
     SetBoards,
     SetContext,
-    SetApps,
+    SetTiles,
     SetSettings,
     SetFilter,
 }
@@ -25,15 +25,15 @@ export enum DrawerActionType {
 const DrawerContextReducer: React.Reducer<DrawerState, DrawerAction> = (prev, action) => {
     switch (action.type) {
         case DrawerActionType.SetBoards:
-            return { boards: action.value, context: false, apps: false, settings: false, filter: false }
+            return { boards: action.value, context: false, tiles: false, settings: false, filter: false }
         case DrawerActionType.SetContext:
-            return { context: action.value, boards: false, apps: false, settings: false, filter: false }
-        case DrawerActionType.SetApps:
-            return { apps: action.value, boards: false, context: false, settings: false, filter: false }
+            return { context: action.value, boards: false, tiles: false, settings: false, filter: false }
+        case DrawerActionType.SetTiles:
+            return { tiles: action.value, boards: false, context: false, settings: false, filter: false }
         case DrawerActionType.SetSettings:
-            return { settings: action.value, boards: false, context: false, apps: false, filter: false }
+            return { settings: action.value, boards: false, context: false, tiles: false, filter: false }
         case DrawerActionType.SetFilter:
-            return { filter: action.value, boards: false, context: false, apps: false, settings: false }
+            return { filter: action.value, boards: false, context: false, tiles: false, settings: false }
     }
 }
 
@@ -47,7 +47,7 @@ export const DrawerContextProvider: React.FunctionComponent<React.PropsWithChild
     const [state, dispatch] = React.useReducer(DrawerContextReducer, {
         boards: false,
         context: false,
-        apps: false,
+        tiles: false,
         settings: false,
         filter: false,
     })

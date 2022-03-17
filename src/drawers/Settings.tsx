@@ -28,7 +28,7 @@ const SettingsParams: Parameters<Settings> = {
     },
     BoardHotkey: { r: KeyCombo({ title: "Board Menu Hotkey", placeholder: "b" }) },
     ContextHotkey: { r: KeyCombo({ title: "Context Menu Hotkey", placeholder: "c" }) },
-    AppsHotkey: { r: KeyCombo({ title: "Apps Menu Hotkey", placeholder: "a" }) },
+    TilesHotkey: { r: KeyCombo({ title: "Tiles Menu Hotkey", placeholder: "t" }) },
     FiltersHotkey: { r: KeyCombo({ title: "Filter Menu Hotkey", placeholder: "f" }) },
     EditHotkey: { r: KeyCombo({ title: "Edit Mode Hotkey", placeholder: "e" }) },
     SettingsHotkey: { r: KeyCombo({ title: "Settings Menu Hotkey", placeholder: "s" }) },

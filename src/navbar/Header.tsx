@@ -29,10 +29,10 @@ export const Header = () => {
                         value: !drawers.state.context,
                     })
                 }} />
-                <SettingsButton icon="applications" text={"Apps"} minimal active={drawers.state.apps} intent={drawers.state.apps ? Intent.PRIMARY : Intent.NONE} onClick={() => {
+                <SettingsButton icon="applications" text={"Tiles"} minimal active={drawers.state.tiles} intent={drawers.state.tiles ? Intent.PRIMARY : Intent.NONE} onClick={() => {
                     drawers.dispatch({
-                        type: DrawerActionType.SetApps,
-                        value: !drawers.state.apps,
+                        type: DrawerActionType.SetTiles,
+                        value: !drawers.state.tiles,
                     })
                 }} />
                 {/* <SettingsButton icon="settings" text={"Filter"} minimal active={drawers.state.filter} intent={drawers.state.filter ? Intent.PRIMARY : Intent.NONE} onClick={() => {

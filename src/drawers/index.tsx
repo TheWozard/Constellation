@@ -1,4 +1,4 @@
-import { AppsDrawer } from "drawers/Apps"
+import { TilesDrawer } from "drawers/Tiles"
 import { BoardsDrawer } from "drawers/Boards"
 import { ContextDrawer } from "drawers/Context"
 import { FilterDrawer } from "drawers/Filter"
@@ -11,7 +11,7 @@ export const DrawerHolder = () => {
         <React.Fragment>
             <BoardsDrawer />
             <ContextDrawer />
-            <AppsDrawer />
+            <TilesDrawer />
             <FilterDrawer />
             <SettingsDrawer />
         </React.Fragment>

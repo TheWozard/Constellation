@@ -16,7 +16,7 @@ export const SimpleTile: React.FunctionComponent<Props> = ({ data, setData }) =>
 export const SimpleTileRenderer: TileRenderer<{}> = {
     type: "simple",
     filters: [],
-    layout: () => ({ h: 1, w: 1, maxH: 1, maxW: 1 }),
+    layout: () => ({ h: 1, w: 1, isResizable: false }),
     layoutStore: () => ({ h: 1, w: 1 }),
     createNew: () => ({}),
     customization: () => {
@@ -24,5 +24,5 @@ export const SimpleTileRenderer: TileRenderer<{}> = {
         return { backgroundColor: `#${randomColor}` }
     },
     RenderTile: SimpleTile,
-    RenderStore: () => (<div className={"flex-list tile-text-area"}>{"Blank tile to take up space in the grid"}</div>),
+    RenderStore: () => (<div className={"flex-list tile-text-area"}></div>),
 }

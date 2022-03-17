@@ -151,3 +151,44 @@ body {
     flex: 1;
   }
 }
+
+.tile-clock {
+  display: flex;
+  font-size: $pt-grid-size * 6;
+  font-weight: bolder;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  .clock-dividers {
+    width: $pt-grid-size * 1.5;
+    text-align: center;
+  }
+  .clock-AM-PM {
+    font-weight: 100;
+    font-size: $pt-grid-size * 3;
+    padding-left: $pt-grid-size * 0.5;
+  }
+  .clock-body {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+  }
+}
+
+.grid-welcome {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  color: #738694;
+  padding-top: $pt-grid-size * 3;
+  h1 {
+    color: #8a9ba8 !important;
+  }
+  li {
+    height: $pt-grid-size * 3;
+  }
+  button {
+    cursor: default !important;
+  }
+}
