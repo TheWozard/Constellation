@@ -1,12 +1,12 @@
 import { Alignment, Icon, Intent, Navbar, NavbarHeading } from "@blueprintjs/core"
 import { DrawerActionType, DrawerContext } from "context/DrawerContext"
-import { GridActionType, GridContext } from "context/GridContext"
+import { BoardActionType, BoardContext } from "context/BoardContext"
 import { SettingsContext, SettingsString } from "context/SettingsContext"
 import React from "react"
 import { SettingsButton } from "unit/SettingsButton"
 
 export const Header = () => {
-    const { state, dispatch } = React.useContext(GridContext)
+    const { state, dispatch } = React.useContext(BoardContext)
     const drawers = React.useContext(DrawerContext)
     const settings = React.useContext(SettingsContext)
 
@@ -43,7 +43,7 @@ export const Header = () => {
                 }} /> */}
                 <SettingsButton icon="edit" text={"Edit"} minimal active={state.editable} intent={state.editable ? Intent.PRIMARY : Intent.NONE} onClick={() => {
                     dispatch({
-                        type: GridActionType.SetEditable,
+                        type: BoardActionType.SetEditable,
                         editable: !state.editable,
                     })
                 }} />

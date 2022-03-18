@@ -1,4 +1,4 @@
-import { TileRenderer } from "grid/tile/interface";
+import { TileRenderer } from "board/tile/interface";
 import React from "react";
 
 interface Props {
@@ -19,7 +19,7 @@ export const SimpleTileRenderer: TileRenderer<{}> = {
     layout: () => ({ h: 1, w: 1, isResizable: false }),
     layoutStore: () => ({ h: 1, w: 1 }),
     createNew: () => ({}),
-    customization: () => {
+    style: () => {
         const randomColor = Math.floor(Math.random() * 16777215).toString(16);
         return { backgroundColor: `#${randomColor}` }
     },

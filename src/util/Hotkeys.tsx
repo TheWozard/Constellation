@@ -1,11 +1,11 @@
 import { HotkeysProvider, HotkeysTarget2 } from "@blueprintjs/core"
 import { DrawerActionType, DrawerContext } from "context/DrawerContext"
-import { GridActionType, GridContext } from "context/GridContext"
+import { BoardActionType, BoardContext } from "context/BoardContext"
 import { SettingsContext } from "context/SettingsContext"
 import React from "react"
 
 export const Hotkeys: React.FunctionComponent<React.PropsWithChildren<{}>> = ({ children }) => {
-    const grid = React.useContext(GridContext)
+    const grid = React.useContext(BoardContext)
     const drawers = React.useContext(DrawerContext)
     const settings = React.useContext(SettingsContext)
 
@@ -62,7 +62,7 @@ export const Hotkeys: React.FunctionComponent<React.PropsWithChildren<{}>> = ({ 
                     label: "Toggle Edit mode - Allows for resizing and moving of tiles",
                     onKeyDown: () => {
                         grid.dispatch({
-                            type: GridActionType.SetEditable,
+                            type: BoardActionType.SetEditable,
                             editable: !grid.state.editable,
                         })
                     },

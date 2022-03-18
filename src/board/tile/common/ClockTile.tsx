@@ -1,4 +1,4 @@
-import { TileRenderer, TileRendererProps } from "grid/tile/interface";
+import { TileRenderer, TileRendererProps } from "board/tile/interface";
 import React from "react";
 
 enum Timezone {

@@ -1,16 +1,75 @@
 import { Card, Classes, Drawer, Position } from "@blueprintjs/core"
 import { DrawerActionType, DrawerContext } from "context/DrawerContext"
-import { GridActionType, GridContext, GridContextProvider } from "context/GridContext";
-import { TileRenderers } from "grid/tile";
-import { TileRenderer } from "grid/tile/interface";
+import { BoardActionType, BoardContext, BoardContextProvider } from "context/BoardContext";
+import { TileRenderers } from "board/tile";
+import { TileRenderer } from "board/tile/interface";
 import React from "react"
 import ReactGridLayout from "react-grid-layout";
 import { WidthProvider } from "react-grid-layout";
-import { StyleFromTileCustomization } from "grid/tile/interface";
+import { TileCard } from "board/tile/Tile";
 
 const ResponsiveGridLayout = WidthProvider(ReactGridLayout);
 const Cols = 5
 
+export const TilesDrawer = () => {
+    const drawer = React.useContext(DrawerContext)
+    const board = React.useContext(BoardContext)
+
+    const layout = React.useMemo(() => {
+        return RendersToLayout(TileRenderers)
+    }, [TileRenderers])
+
+    const tiles = React.useMemo(() => {
+        return TileRenderers.map((tile, index): React.ReactNode => (
+            <div key={`${index}`} id={`${index}`}>
+                <TileCard style={tile.style != null ? tile.style() : {}} interactive onClick={() => {
+                    board.dispatch({
+                        type: BoardActionType.AddTiles,
+                        tiles: [
+                            {
+                                layout: { i: "a", x: 0, y: 0, ...tile.layout() },
+                                data: { type: tile.type, data: tile.createNew() },
+                                style: tile.style != null ? tile.style() : {}
+                            }
+                        ]
+                    })
+                }}>
+                    <tile.RenderStore />
+                </TileCard>
+            </div>
+        ))
+    }, [TileRenderers])
+
+    return (
+        <Drawer
+            className={Classes.DARK}
+            isOpen={drawer.state.tiles}
+            position={Position.RIGHT}
+            title={"Tiles"}
+            icon={"applications"}
+            onClose={() => {
+                drawer.dispatch({
+                    type: DrawerActionType.SetTiles,
+                    value: false,
+                })
+            }}
+        >
+            <div className={"drawer-padding drawer-full overflow-scroll-hidden"}>
+                <ResponsiveGridLayout
+                    layout={layout}
+                    cols={Cols}
+                    isResizable={false}
+                    isDraggable={false}
+                    useCSSTransforms={false}
+                >
+                    {tiles}
+                </ResponsiveGridLayout>
+            </div>
+        </Drawer>
+    )
+}
+
+// RendersToLayout creates a compact layout for the provided list of TileRenderers
 const RendersToLayout = (tiles: TileRenderer<any>[]): ReactGridLayout.Layout[] => {
     const layouts: ReactGridLayout.Layout[] = []
     let fullLayers = 0
@@ -79,50 +138,4 @@ const RendersToLayout = (tiles: TileRenderer<any>[]): ReactGridLayout.Layout[] =
         layouts.push(layout)
     })
     return layouts
-}
-
-const Layout = RendersToLayout(TileRenderers)
-
-export const TilesDrawer = () => {
-    const { state, dispatch } = React.useContext(DrawerContext)
-    const grid = React.useContext(GridContext)
-
-    return (
-        <Drawer
-            className={Classes.DARK}
-            isOpen={state.tiles}
-            position={Position.RIGHT}
-            title={"Tiles"}
-            icon={"applications"}
-            onClose={() => {
-                dispatch({
-                    type: DrawerActionType.SetTiles,
-                    value: false,
-                })
-            }}
-        >
-            <GridContextProvider>
-                <div className={"drawer-padding drawer-full overflow-scroll-hidden"}>
-                    <ResponsiveGridLayout
-                        layout={Layout}
-                        cols={Cols}
-                        isResizable={false}
-                        isDraggable={false}
-                        useCSSTransforms={false}
-                    >
-                        {TileRenderers.map((tile, index): React.ReactNode => (
-                            <div key={`${index}`} id={`${index}`}><Card style={{ height: "100%", ...tile.customization != null ? StyleFromTileCustomization(tile.customization()) : {} }} interactive onClick={() => {
-                                grid.dispatch({
-                                    type: GridActionType.AppendToLayout,
-                                    layout: [
-                                        { i: "a", x: 0, y: 0, tile: { type: tile.type, data: tile.createNew(), customization: tile.customization != null ? tile.customization() : undefined }, ...tile.layout() }
-                                    ]
-                                })
-                            }}><tile.RenderStore /></Card></div>
-                        ))}
-                    </ResponsiveGridLayout>
-                </div>
-            </GridContextProvider>
-        </Drawer>
-    )
 }

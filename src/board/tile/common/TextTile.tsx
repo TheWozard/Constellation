@@ -1,6 +1,6 @@
 import { TextArea } from "@blueprintjs/core";
-import { GridContext } from "context/GridContext";
-import { TileRenderer } from "grid/tile/interface";
+import { BoardContext } from "context/BoardContext";
+import { TileRenderer } from "board/tile/interface";
 import React from "react";
 import ReactMarkdown from 'react-markdown';
 
@@ -14,7 +14,7 @@ interface TextTileData {
 }
 
 export const TextTile: React.FunctionComponent<Props> = ({ data, setData }) => {
-    const { state } = React.useContext(GridContext)
+    const { state } = React.useContext(BoardContext)
     return (
         <React.Fragment>
             {!state.editable ?
