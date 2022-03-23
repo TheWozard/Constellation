@@ -188,7 +188,7 @@ export const BoardContext = React.createContext<{
 }>({} as any);
 
 // Storage for the state of this context to persist between sessions
-const BoardContextStorage = new LongTermStorage<BoardStatePersistent>("grid-context", { content: DefaultBoardContextStorage.content }, "2", {
+export const BoardContextStorage = new LongTermStorage<BoardStatePersistent>("grid-context", { content: DefaultBoardContextStorage.content }, "2", {
     "1": (prev) => ({ content: { ...DefaultBoardContextStorage.content, tiles: (prev as any).layout } })
 })
 
@@ -224,7 +224,8 @@ const ActionToTileByID = (tiles: TileContent[], id: string, action: (tile: TileC
     if (index >= 0) {
         const next = [...tiles]
         next[index] = action(next[index])
-        return tiles
+        console.log(next)
+        return next
     }
     return tiles
 }

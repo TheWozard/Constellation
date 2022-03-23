@@ -20,7 +20,7 @@ export const Board: React.FunctionComponent = () => {
                 <Tile {...tile} />
             </div>
         ))
-    }, [board.state.content.tiles])
+    }, [board.state])
 
     // Welcome message helps direct people when they first open the app
     if (board.state.content.tiles.length === 0) {

@@ -45,7 +45,7 @@ const TileCore: React.FunctionComponent<TileContent> = (content) => {
     }
     const TILE = TileIndex[content.data.type]
     if (TILE != null) {
-        return (<TILE.RenderTile {...content} setData={(data: any) => {
+        return (<TILE.RenderTile data={content.data.data} setData={(data: any) => {
             dispatch({ type: BoardActionType.SetTileData, tile_id: ContentID(content), tile_data: { ...content.data, data } })
         }} />)
     }
