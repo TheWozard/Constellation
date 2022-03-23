@@ -125,7 +125,7 @@ const BoardContextReducer: React.Reducer<BoardState, BoardAction> = (prev, actio
             break;
         case BoardActionType.SetBoardColumns:
             if (action.columns != null && action.columns > 0) {
-                return { ...prev, content: { ...prev.content, columns: action.columns } }
+                return { ...prev, content: { ...prev.content, details: { ...prev.content.details, columns: action.columns } } }
             }
             break;
         case BoardActionType.ResetBoard:
@@ -224,7 +224,6 @@ const ActionToTileByID = (tiles: TileContent[], id: string, action: (tile: TileC
     if (index >= 0) {
         const next = [...tiles]
         next[index] = action(next[index])
-        console.log(next)
         return next
     }
     return tiles

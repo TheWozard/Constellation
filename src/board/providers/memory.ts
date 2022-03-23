@@ -1,21 +1,16 @@
 import { BoardContent } from "board/interface";
-import { PureLayout } from "board/layout/interface";
-import { BoardContentProvider } from "board/providers/interface";
-
+import { BasicLayout } from "board/layout/interface";
+import { BoardContentProvider } from "board/providers";
 
 export class MemoryBoardContentProvider implements BoardContentProvider {
 
-    private content: BoardContent<PureLayout>[];
-    // delays the promise by ms, used in testing loading display
-    private delay: number;
+    private content: BoardContent<BasicLayout>[];
 
-    constructor(content: BoardContent<PureLayout>[], delay = 0) {
+    constructor(content: BoardContent<BasicLayout>[]) {
         this.content = content
-        this.delay = delay
     }
 
-    public async Get(): Promise<BoardContent<PureLayout>[]> {
-        await new Promise(r => setTimeout(r, this.delay));
+    public async Get(): Promise<BoardContent<BasicLayout>[]> {
         return this.content
     }
 

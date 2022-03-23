@@ -4,17 +4,18 @@ import { BoardContent } from "board/interface";
 import React from "react";
 
 interface Props {
-    content: BoardContent
+    content: BoardContent<any>
+    onClick?: () => void
 }
 
-export const ContentDisplay: React.FunctionComponent<Props> = ({ content }) => {
+export const ContentDisplay: React.FunctionComponent<Props> = ({ content, onClick }) => {
     let counts = content.tiles.reduce<{ [s: string]: number }>((prev, current) => {
         prev[current.data.type] = (prev[current.data.type] || 0) + 1
         return prev
     }, {})
 
     return (
-        <Card elevation={2} className={"margin-vertical-spacing"}>
+        <Card elevation={2} className={"margin-vertical-spacing"} onClick={onClick} interactive={onClick != null}>
             <H3>{content.details.name}</H3>
             <div className={UI_TEXT}>{content.details.description}</div>
             <div className={UI_TEXT}>{"Overview"}</div>

@@ -1,16 +1,23 @@
-import { BoardContentProvider } from "board/providers/interface"
+import { BoardContent } from "board/interface"
+import { BasicLayout, PureLayout } from "board/layout/interface"
 import { MemoryBoardContentProvider } from "board/providers/memory"
 
-interface BoardContentProvidersDescription {
+export interface BoardContentProvidersDescription {
     name: string
     details: string
     provider: BoardContentProvider
+}
+
+export interface BoardContentProvider {
+    Get(): Promise<BoardContent<BasicLayout>[]>
 }
 
 export const BoardContentProviders: BoardContentProvidersDescription[] = [
     {
         name: "basic",
         details: "some basic boards to get you started",
-        provider: new MemoryBoardContentProvider([]),
+        provider: new MemoryBoardContentProvider([
+            { "details": { "name": "Default", "description": "Default starting board", "last_updated": new Date("2022-03-23T01:00:00.506Z"), "columns": 9 }, "tiles": [{ "layout": { "x": 5, "y": 1, "w": 2, "h": 2, "static": false }, "style": {}, "data": { "type": "text", "data": { "text": "There are many things a board can do" } } }], "context": {} }
+        ]),
     }
 ]

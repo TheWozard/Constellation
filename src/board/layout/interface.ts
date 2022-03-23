@@ -1,10 +1,14 @@
 import { TileContent } from "board/tile/interface"
 import ReactGridLayout from "react-grid-layout"
 
-type PureOmission = "i" | "x" | "y"
+type PureOmission = BasicOmission | "x" | "y"
 
 // A version of ReactGridLayout.Layout that doesn't include information on where it shows up in the grid
 export type PureLayout = Omit<ReactGridLayout.Layout, PureOmission>
+
+type BasicOmission = "i"
+
+export type BasicLayout = Omit<ReactGridLayout.Layout, BasicOmission>
 
 let ID = 0
 

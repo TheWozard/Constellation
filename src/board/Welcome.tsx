@@ -1,4 +1,4 @@
-import { Button, H1, KeyCombo, Keys, Tag } from '@blueprintjs/core';
+import { Button, H1, KeyCombo } from '@blueprintjs/core';
 import React from 'react';
 
 export const Welcome: React.FunctionComponent = () => {
