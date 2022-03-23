@@ -1,11 +1,11 @@
 import { Button, Card, H4, Intent } from "@blueprintjs/core";
-import { BoardActionType, BoardContext } from "context/BoardContext";
 import { TileIndex } from "board/tile";
-import { TileContent, TileStyle, TileData, ContentID } from "board/tile/interface";
+import { ContentID, TileContent, TileStyle } from "board/tile/interface";
+import { BoardActionType, BoardContext } from "context/BoardContext";
 import { CreateInputRequest } from "portals/InputRequest";
 import { useContext } from "react";
 import { ColorInput } from "unit/inputs.tsx/ColorInput";
-import { ToastError, ToastSuccess, ToastWarning } from "util/Toaster";
+import { ToastSuccess, ToastWarning } from "util/Toaster";
 
 
 // Tile the common features of all tiles
@@ -54,7 +54,7 @@ const TileCore: React.FunctionComponent<TileContent> = (content) => {
 
 // TileMenu the edit menu for all tiles
 const TileMenu: React.FunctionComponent<TileContent> = (content) => {
-    const { state, dispatch } = useContext(BoardContext)
+    const { dispatch } = useContext(BoardContext)
 
     return (
         <div className={"tile-hover-menu margin-vertical-spacing"}>

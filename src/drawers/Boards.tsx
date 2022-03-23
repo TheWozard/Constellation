@@ -5,6 +5,7 @@ import React from "react"
 import { ConfirmButton } from "unit/ConfirmButton"
 import { ContentDisplay } from "unit/ContentDisplay"
 import { ContentImportExport } from "unit/ContentImportExport"
+import { BoardContentProviders } from "board/providers"
 
 export const BoardsDrawer = () => {
     const drawer = React.useContext(DrawerContext)
@@ -41,6 +42,7 @@ export const BoardsDrawer = () => {
                     board.dispatch({ type: BoardActionType.ResetBoard })
                 }} />
                 <ContentImportExport content={board.state.content} />
+                <pre>{JSON.stringify(BoardContentProviders, null, "\t")}</pre>
             </div>
         </Drawer>
     )

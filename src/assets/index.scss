@@ -181,16 +181,28 @@ body {
   display: flex;
   align-items: center;
   flex-direction: column;
-  color: #738694;
+  color: $pt-dark-text-color-muted;
   padding-top: $pt-grid-size * 3;
-  h1 {
-    color: #8a9ba8 !important;
-  }
   li {
-    height: $pt-grid-size * 3;
+    height: $pt-button-height;
+  }
+  .bp4-key-combo {
+    display: inline;
   }
 }
 
 .non-button {
   cursor: default !important;
+}
+
+.bp4-dialog {
+  h4 {
+    color: $pt-dark-text-color;
+  }
+  .bp4-key {
+    background-color: $pt-text-color-disabled;
+    color: $pt-dark-text-color;
+  }
+  background-color: $pt-dark-app-background-color;
+  color: $pt-dark-text-color;
 }

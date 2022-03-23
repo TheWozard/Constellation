@@ -1,4 +1,4 @@
-import { Button, H1, Tag } from '@blueprintjs/core';
+import { Button, H1, KeyCombo, Keys, Tag } from '@blueprintjs/core';
 import React from 'react';
 
 export const Welcome: React.FunctionComponent = () => {
@@ -11,7 +11,7 @@ export const Welcome: React.FunctionComponent = () => {
                 </p>
                 <ul>
                     <li>
-                        Press <Tag>?</Tag> to view the hotkeys
+                        Press <KeyCombo combo={"?"} /> to view the hotkeys
                     </li>
                     <li>
                         Click on <Button className={"non-button"} text={"Tiles"} icon="applications" disabled minimal /> to start adding Tiles to your Dashboard

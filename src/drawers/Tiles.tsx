@@ -1,12 +1,11 @@
-import { Card, Classes, Drawer, Position } from "@blueprintjs/core"
-import { DrawerActionType, DrawerContext } from "context/DrawerContext"
-import { BoardActionType, BoardContext, BoardContextProvider } from "context/BoardContext";
+import { Classes, Drawer, Position } from "@blueprintjs/core";
 import { TileRenderers } from "board/tile";
 import { TileRenderer } from "board/tile/interface";
-import React from "react"
-import ReactGridLayout from "react-grid-layout";
-import { WidthProvider } from "react-grid-layout";
 import { TileCard } from "board/tile/Tile";
+import { BoardActionType, BoardContext } from "context/BoardContext";
+import { DrawerActionType, DrawerContext } from "context/DrawerContext";
+import React from "react";
+import ReactGridLayout, { WidthProvider } from "react-grid-layout";
 
 const ResponsiveGridLayout = WidthProvider(ReactGridLayout);
 const Cols = 5
@@ -17,7 +16,7 @@ export const TilesDrawer = () => {
 
     const layout = React.useMemo(() => {
         return RendersToLayout(TileRenderers)
-    }, [TileRenderers])
+    }, [])
 
     const tiles = React.useMemo(() => {
         return TileRenderers.map((tile, index): React.ReactNode => (
@@ -38,7 +37,7 @@ export const TilesDrawer = () => {
                 </TileCard>
             </div>
         ))
-    }, [TileRenderers])
+    }, [board])
 
     return (
         <Drawer
