@@ -1,5 +1,5 @@
 import { BoardContent } from "board/interface"
-import { BasicLayout, PureLayout } from "board/layout/interface"
+import { BasicLayout } from "board/layout/interface"
 import { MemoryBoardContentProvider } from "board/providers/memory"
 
 export interface BoardContentProvidersDescription {
