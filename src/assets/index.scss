@@ -206,3 +206,24 @@ body {
   background-color: $pt-dark-app-background-color;
   color: $pt-dark-text-color;
 }
+
+.inline-spaced {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-spacer {
+  display: flex;
+  flex-direction: column;
+  .spacer {
+    flex: 1;
+    min-height: $pt-grid-size * 3;
+  }
+}
+
+.fixed-width {
+  .bp4-popover {
+  width: 100%
+  }
+}

@@ -29,6 +29,8 @@ interface BoardAction {
 
     // Board Actions
     details?: BoardDetails
+    name?: string
+    description?: string
     columns?: number
 
     // Group Actions
@@ -50,6 +52,8 @@ export enum BoardActionType {
     SetEditable,
     SetContent,
     SetBoardColumns,
+    SetBoardName,
+    SetBoardDescription,
     ResetBoard,
 
     // Group Actions
@@ -121,6 +125,16 @@ const BoardContextReducer: React.Reducer<BoardState, BoardAction> = (prev, actio
         case BoardActionType.SetContent:
             if (action.content != null) {
                 return { ...prev, content: { ...action.content, tiles: action.content.tiles.map(ReIndexContent) } }
+            }
+            break;
+        case BoardActionType.SetBoardName:
+            if (action.name != null) {
+                return { ...prev, content: { ...prev.content, details: { ...prev.content.details, name: action.name } } }
+            }
+            break;
+        case BoardActionType.SetBoardDescription:
+            if (action.description != null) {
+                return { ...prev, content: { ...prev.content, details: { ...prev.content.details, description: action.description } } }
             }
             break;
         case BoardActionType.SetBoardColumns:

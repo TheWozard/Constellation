@@ -4,7 +4,7 @@ import { ContentID, TileContent, TileStyle } from "board/tile/interface";
 import { BoardActionType, BoardContext } from "context/BoardContext";
 import { CreateInputRequest } from "portals/InputRequest";
 import { useContext } from "react";
-import { ColorInput } from "unit/inputs.tsx/ColorInput";
+import { ColorInput } from "unit/inputs/ColorInput";
 import { ToastSuccess, ToastWarning } from "util/Toaster";
 
 

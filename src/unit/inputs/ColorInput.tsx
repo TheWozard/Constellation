@@ -12,16 +12,15 @@ export const ColorInput = (title: string, placeholder?: string): InputRequestFor
                 <InputGroup
                     onBlur={() => {
                         if (isValid) {
-                            if (data === "") {
-                                set(undefined)
-                            } else {
-                                set(data)
-                            }
+                            set(data)
+                        }
+                        if (data === "") {
+                            set(undefined)
                         }
                     }}
                     onChange={(event) => {
                         const data = event.target.value
-                        setIsValid(IsValidColor(data))
+                        setIsValid(IsValidColor(data) || data === "")
                         setData(data.toUpperCase())
                     }}
                     value={data}
@@ -34,6 +33,6 @@ export const ColorInput = (title: string, placeholder?: string): InputRequestFor
     }
 }
 
-const IsValidColor = (color: string) => {
-    return color === "" || ((color.length === 7 || color.length === 9) && color.charAt(0) === "#" && !isNaN(Number('0x' + color.substring(1))))
+export const IsValidColor = (color: string) => {
+    return ((color.length === 7 || color.length === 9) && color.charAt(0) === "#" && !isNaN(Number('0x' + color.substring(1))))
 }
