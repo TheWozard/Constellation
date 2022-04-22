@@ -13,6 +13,5 @@ export interface BoardContent<T = ReactGridLayout.Layout> {
 export interface BoardDetails {
     name: string
     description: string
-    last_updated: Date
     columns: number
 }

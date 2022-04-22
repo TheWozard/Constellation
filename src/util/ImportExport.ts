@@ -11,7 +11,6 @@ export const SanitizeContent = (content: Partial<BoardContent<Partial<ReactGridL
         details: {
             name: content.details?.name || DefaultBoardContextStorage.content.details.name,
             description: content.details?.description || DefaultBoardContextStorage.content.details.description,
-            last_updated: typeof content.details?.last_updated === "string" ? new Date(content.details.last_updated) : (content.details?.last_updated || new Date()),
             columns: content.details?.columns || DefaultBoardContextStorage.content.details.columns
         },
         tiles: (content.tiles || []).map((tile) => {

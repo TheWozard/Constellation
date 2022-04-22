@@ -1,8 +1,8 @@
-import { Classes, Drawer, DrawerSize, H3, Position } from "@blueprintjs/core";
+import { Classes, Drawer, H3, Position } from "@blueprintjs/core";
 import { BoardContext } from "context/BoardContext";
 import { DrawerActionType, DrawerContext } from "context/DrawerContext";
-import { BoardProvider } from "drawers/components/BoardProvider";
 import { BoardClear } from "drawers/components/BoardClear";
+import { BoardProvider } from "drawers/components/BoardProvider";
 import { BoardSettings } from "drawers/components/BoardSettings";
 import React from "react";
 import { BoardCard } from "unit/ContentDisplay";

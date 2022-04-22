@@ -81,7 +81,6 @@ export const DefaultBoardContextStorage: BoardState = {
         details: {
             name: "Default",
             description: "Default starting board",
-            last_updated: new Date(),
             columns: 12,
         }
     }

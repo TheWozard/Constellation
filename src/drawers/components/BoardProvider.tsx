@@ -15,7 +15,7 @@ interface Props {
     disabled?: boolean
 }
 
-export const BoardProvider = ({ }: Props) => {
+export const BoardProvider = () => {
     const board = React.useContext(BoardContext)
     const [provider, setProvider] = React.useState<BoardContentProvidersDescription | undefined>()
     const [searching, setSearching] = React.useState<boolean>(false)
