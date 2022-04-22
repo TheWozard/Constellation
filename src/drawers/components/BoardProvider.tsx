@@ -11,10 +11,6 @@ import { ToastError } from "util/Toaster";
 
 const ContentSelector = Select.ofType<BoardContentProvidersDescription>();
 
-interface Props {
-    disabled?: boolean
-}
-
 export const BoardProvider = () => {
     const board = React.useContext(BoardContext)
     const [provider, setProvider] = React.useState<BoardContentProvidersDescription | undefined>()
