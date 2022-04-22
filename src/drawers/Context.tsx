@@ -3,7 +3,8 @@ import { DrawerActionType, DrawerContext } from "context/DrawerContext"
 import React from "react"
 
 export const ContextDrawer = () => {
-    const {state, dispatch} = React.useContext(DrawerContext)
+    const { state, dispatch } = React.useContext(DrawerContext)
+
 
     return (
         <Drawer
@@ -18,6 +19,7 @@ export const ContextDrawer = () => {
                     value: false,
                 })
             }}
+            size={"500px"}
         >
 
         </Drawer>

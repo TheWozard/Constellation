@@ -109,5 +109,5 @@ export const ClockTileRenderer: TileRenderer<ClockTileData> = {
     layoutStore: () => ({ h: 1, w: 2 }),
     createNew: () => ({ timezone: Timezone.local, hours: Hours.ampm, padHour: true }),
     RenderTile: ClockTile,
-    RenderStore: () => (<ClockTile data={{ timezone: Timezone.local, hours: Hours.ampm, padHour: true }} setData={() => { }} />),
+    RenderStore: () => (<ClockTile data={{ timezone: Timezone.local, hours: Hours.ampm, padHour: true }} setData={() => { }} style={{}} />),
 }

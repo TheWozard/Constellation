@@ -2,10 +2,10 @@ import { Button, Card, H4, Intent } from "@blueprintjs/core";
 import { TileIndex } from "board/tile";
 import { ContentID, TileContent, TileStyle } from "board/tile/interface";
 import { BoardActionType, BoardContext } from "context/BoardContext";
-import { CreateInputRequest } from "portals/InputRequest";
+import { HexColor } from "paramaters/input/HexColor";
+import { CreateInputRequest } from "portals/ParameterRequest";
 import { useContext } from "react";
-import { ColorInput } from "unit/inputs/ColorInput";
-import { ToastSuccess, ToastWarning } from "util/Toaster";
+import { ToastSuccess } from "util/Toaster";
 
 
 // Tile the common features of all tiles
@@ -45,7 +45,7 @@ const TileCore: React.FunctionComponent<TileContent> = (content) => {
     }
     const TILE = TileIndex[content.data.type]
     if (TILE != null) {
-        return (<TILE.RenderTile data={content.data.data} setData={(data: any) => {
+        return (<TILE.RenderTile style={content.style} data={content.data.data} setData={(data: any) => {
             dispatch({ type: BoardActionType.SetTileData, tile_id: ContentID(content), tile_data: { ...content.data, data } })
         }} />)
     }
@@ -56,6 +56,7 @@ const TileCore: React.FunctionComponent<TileContent> = (content) => {
 const TileMenu: React.FunctionComponent<TileContent> = (content) => {
     const { dispatch } = useContext(BoardContext)
 
+    const TILE = TileIndex[content.data.type]
     return (
         <div className={"tile-hover-menu margin-vertical-spacing"}>
             <Button intent={Intent.DANGER} icon="cross" onClick={() => {
@@ -64,12 +65,13 @@ const TileMenu: React.FunctionComponent<TileContent> = (content) => {
             <Button intent={Intent.NONE} icon="draw" onClick={async () => {
                 try {
                     const changes = await CreateInputRequest<TileStyle>({ ...content.style }, {
-                        backgroundColor: ColorInput("Background Color", "#000000")
+                        backgroundColor: { input: HexColor({ title: "Background Color", placeholder: "#000000" }) },
+                        textColor: { input: HexColor({ title: "Text Color", placeholder: "#000000" }) },
+                        ...TILE.styleParameters
                     }, { icon: "draw" })
-                    dispatch({ type: BoardActionType.SetTileStyle, tile_id: ContentID(content), tile_style: { ...content.style, ...changes } })
+                    dispatch({ type: BoardActionType.SetTileStyle, tile_id: ContentID(content), tile_style: changes })
                     ToastSuccess("Customization updated!")
                 } catch (err) {
-                    ToastWarning("Canceled editing customization")
                 }
             }} />
             <Button intent={content.layout.static ? Intent.PRIMARY : Intent.NONE} icon="pin" onClick={() => {
@@ -95,7 +97,7 @@ const CSSPropertiesFromTileStyle = (style: TileStyle): React.CSSProperties => {
             props.backgroundColor = style.backgroundColor
         }
         if (style.textColor != null) {
-            props.color = style.textColor
+            props.color = `${style.textColor}`
         }
     }
     return props

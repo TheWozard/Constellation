@@ -1,4 +1,4 @@
-import { IsValidColor } from "unit/inputs/ColorInput";
+import { IsValidColor } from "paramaters/input/HexColor"
 
 describe('IsValidColor', () => {
     const tests = [

@@ -24,5 +24,5 @@ export const SimpleTileRenderer: TileRenderer<{}> = {
         return { backgroundColor: `#${randomColor}` }
     },
     RenderTile: SimpleTile,
-    RenderStore: () => (<div className={"flex-list tile-text-area"}></div>),
+    RenderStore: () => (<div />),
 }

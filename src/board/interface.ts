@@ -1,3 +1,4 @@
+import { BoardContext } from "board/context/interface"
 import { TileContent } from "board/tile/interface"
 import ReactGridLayout from "react-grid-layout"
 
@@ -14,9 +15,4 @@ export interface BoardDetails {
     description: string
     last_updated: Date
     columns: number
-}
-
-// BoardContext TODO: this will hold the description of the current variables in the configured context
-export interface BoardContext {
-
 }

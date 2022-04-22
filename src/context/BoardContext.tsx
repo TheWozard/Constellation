@@ -74,7 +74,9 @@ export const DefaultBoardContextStorage: BoardState = {
     resizable: false,
     editable: false,
     content: {
-        context: {},
+        context: {
+            selected: []
+        },
         tiles: [],
         details: {
             name: "Default",

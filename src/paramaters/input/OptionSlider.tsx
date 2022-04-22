@@ -1,5 +1,6 @@
 import { FormGroup, Slider } from "@blueprintjs/core";
-import { ParameterRenderer } from "paramaters";
+import { ParameterInput } from "paramaters";
+import { SimpleFormGroup } from "paramaters/input/Common";
 import React from "react";
 
 interface Props<T> {
@@ -10,8 +11,8 @@ interface Props<T> {
     showTrackFill?: boolean
 }
 
-export function OptionSlider<T>({ options, labels, title, help, showTrackFill }: Props<T>): ParameterRenderer<T> {
-    return ({ name, param, value, setValue }) => {
+export function OptionSlider<T>({ options, labels, title, help, showTrackFill }: Props<T>): ParameterInput<T> {
+    return ({ name, value, setValue, settings }) => {
         const [index, setIndex] = React.useState<number>(() => {
             let index = options.indexOf(value)
             if (index === -1) {
@@ -22,16 +23,17 @@ export function OptionSlider<T>({ options, labels, title, help, showTrackFill }:
         })
 
         return (
-            <FormGroup
-                label={title || name}
-                labelFor={`${name}-input`}
-                helperText={help}
-                labelInfo={param.required ? "(Required)" : undefined}
+            <SimpleFormGroup
+                name={name}
+                title={title}
+                help={help}
+                disabled={settings.disabled}
+                required={settings.required}
             >
                 <Slider
-                    disabled={param.disabled}
+                    disabled={settings.disabled}
                     min={0}
-                    max={options.length-1}
+                    max={options.length - 1}
                     value={index}
                     showTrackFill={showTrackFill}
                     onChange={setIndex}
@@ -47,7 +49,7 @@ export function OptionSlider<T>({ options, labels, title, help, showTrackFill }:
                         return `${options[value]}`
                     }}
                 />
-            </FormGroup>
+            </SimpleFormGroup>
         )
     }
 }

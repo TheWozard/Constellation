@@ -45,6 +45,9 @@ export const SanitizeContent = (content: Partial<BoardContent<Partial<ReactGridL
                 }
             }
         }),
-        context: {}
+        context: {
+            // TODO: Finish Import of context
+            selected: []
+        }
     }
 }

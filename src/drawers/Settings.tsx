@@ -2,16 +2,16 @@ import { Button, Classes, Drawer, DrawerSize, Intent, Position } from "@blueprin
 import { DrawerActionType, DrawerContext } from "context/DrawerContext"
 import { DefaultSettings, Settings, SettingsContext, SettingsUpdate, TextRendering, ToastLevel } from "context/SettingsContext"
 import { Parameters } from "paramaters"
-import { ParameterList } from "paramaters/ParameterList"
-import { KeyCombo } from "paramaters/render/KeyCombo"
-import { OptionButtons } from "paramaters/render/OptionButtons"
+import { KeyCombo } from "paramaters/input/KeyCombo"
+import { OptionButtons } from "paramaters/input/OptionButtons"
+import { ParameterForm } from "paramaters/ParameterForm"
 import React from "react"
 import { ConfirmButton } from "unit/ConfirmButton"
 import { ToastError } from "util/Toaster"
 
 const SettingsParams: Parameters<Settings> = {
     TextRendering: {
-        r: OptionButtons<TextRendering>({
+        input: OptionButtons<TextRendering>({
             title: "Render Button Text",
             options: [TextRendering.Hidden, TextRendering.FirstLetter, TextRendering.Full],
             labels: ["Hidden", "First Letter", "Full"],
@@ -19,19 +19,19 @@ const SettingsParams: Parameters<Settings> = {
         })
     },
     ToastLevel: {
-        r: OptionButtons<ToastLevel>({
+        input: OptionButtons<ToastLevel>({
             title: "Toast Level",
             options: [ToastLevel.Info, ToastLevel.Success, ToastLevel.Warning, ToastLevel.Error],
             labels: ["Info", "Success", "Warning", "Error"],
             even: true
         })
     },
-    BoardHotkey: { r: KeyCombo({ title: "Board Menu Hotkey", placeholder: "b" }) },
-    ContextHotkey: { r: KeyCombo({ title: "Context Menu Hotkey", placeholder: "c" }) },
-    TilesHotkey: { r: KeyCombo({ title: "Tiles Menu Hotkey", placeholder: "t" }) },
-    FiltersHotkey: { r: KeyCombo({ title: "Filter Menu Hotkey", placeholder: "f" }) },
-    EditHotkey: { r: KeyCombo({ title: "Edit Mode Hotkey", placeholder: "e" }) },
-    SettingsHotkey: { r: KeyCombo({ title: "Settings Menu Hotkey", placeholder: "s" }) },
+    BoardHotkey: { input: KeyCombo({ title: "Board Menu Hotkey", placeholder: "b" }) },
+    ContextHotkey: { input: KeyCombo({ title: "Context Menu Hotkey", placeholder: "c" }) },
+    TilesHotkey: { input: KeyCombo({ title: "Tiles Menu Hotkey", placeholder: "t" }) },
+    FiltersHotkey: { input: KeyCombo({ title: "Filter Menu Hotkey", placeholder: "f" }) },
+    EditHotkey: { input: KeyCombo({ title: "Edit Mode Hotkey", placeholder: "e" }) },
+    SettingsHotkey: { input: KeyCombo({ title: "Settings Menu Hotkey", placeholder: "s" }) },
 }
 
 export const SettingsDrawer = () => {
@@ -54,10 +54,10 @@ export const SettingsDrawer = () => {
             }}
         >
             <div className={"drawer-padding drawer-full"}>
-                <ParameterList
+                <ParameterForm
                     init={settings}
                     params={SettingsParams}
-                    className={"flex-list"}
+                    formProps={{ className: "flex-list" }}
                     onComplete={(data) => {
                         SettingsUpdate(data as Settings)
                     }}
@@ -73,7 +73,7 @@ export const SettingsDrawer = () => {
                             SettingsUpdate(DefaultSettings)
                         }} />
                     </div>
-                </ParameterList>
+                </ParameterForm>
             </div>
         </Drawer>
     )

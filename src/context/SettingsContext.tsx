@@ -1,5 +1,5 @@
 import { Intent } from "@blueprintjs/core"
-import { KeyComboString } from "paramaters/render/KeyCombo"
+import { KeyComboString } from "paramaters/input/KeyCombo"
 import React from "react"
 import { LongTermStorage } from "util/LongTermStorage"
 
